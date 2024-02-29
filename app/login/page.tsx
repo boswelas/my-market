@@ -1,28 +1,33 @@
+"use client";
 import FormButton from "@/components/form-btn";
 import FormInput from "@/components/form-input";
 import SocialLogin from "@/components/social-login";
-import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
+import { useFormState, useFormStatus } from "react-dom";
+import { handleForm } from "./actions";
+
 
 export default function LogIn() {
+    const [state, action] = useFormState(handleForm, null);
     return (
         <div className="flex flex-col gap-10 py-8 px-6">
             <div className="flex flex-col gap-2 *:font-medium">
                 <h1 className="text-2xl ">Welcome!</h1>
                 <h2 className="text-xl">Log in with email and password</h2>
             </div>
-            <form className="flex flex-col gap-3">
+            <form action={action} className="flex flex-col gap-3">
                 <FormInput
+                    name="email"
                     type="email"
                     placeholder="Email"
                     required
                     errors={[]} />
                 <FormInput
+                    name="password"
                     type="password"
                     placeholder="Password"
                     required
-                    errors={[]} />
-                <FormButton loading={false} text={"Log In"} />
+                    errors={state?.errors ?? []} />
+                <FormButton text={"Log In"} />
             </form>
             <SocialLogin />
         </div>
