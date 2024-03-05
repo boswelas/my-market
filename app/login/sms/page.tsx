@@ -1,5 +1,5 @@
-import FormButton from "@/components/button";
-import FormInput from "@/components/input";
+import Button from "@/components/button";
+import Input from "@/components/input";
 import SocialLogin from "@/components/social-login";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
@@ -12,17 +12,17 @@ export default function SMSLogIn() {
                 <h2 className="text-xl">Verify your phone number.</h2>
             </div>
             <form className="flex flex-col gap-3">
-                <FormInput
+                <Input
                     type="number"
                     placeholder="Phone number"
                     required
                     errors={[]} />
-                <FormInput
+                <Input
                     type="number"
                     placeholder="Verification code"
                     required
                     errors={[]} />
-                <FormButton loading={false} text={"Verify"} />
+                <Button  text={"Verify"} />
             </form>
         </div>
     );
