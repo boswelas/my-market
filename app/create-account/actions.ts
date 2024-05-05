@@ -7,6 +7,7 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { IronSession } from "iron-session";
 import { redirect } from "next/navigation";
+import getSession from "@/lib/session";
 
 const checkUsername = (username: string) =>
     !username.includes("potato");
@@ -54,10 +55,10 @@ const formSchema = z
             .toLowerCase()
             .refine(checkUniqueEmail, "Email already taken"),
         password: z.string()
-            .min(PASSWORD_MIN_LENGTH)
-            .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+            .min(PASSWORD_MIN_LENGTH),
+        // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
         confirm_password: z.string()
-            .min(PASSWORD_MIN_LENGTH, PASSWORD_REGEX_ERROR)
+        // .min(PASSWORD_MIN_LENGTH, PASSWORD_REGEX_ERROR)
     }).refine(checkPasswords, {
         message: "Passwords should match", path: ["confirm_password"]
     });
@@ -89,15 +90,9 @@ export async function createAccount(prevState: any, formData: FormData) {
                 id: true,
             },
         });
-        console.log(user);
-        // log the user in
-        const cookie = await getIronSession(cookies(), {
-            cookieName: "delicious-karrot",
-            password: process.env.COOKIE_PASSWORD!,
-        });
-        //@ts-ignore
-        cookie.id = user.id;
-        await cookie.save();
+        const session = await getSession();
+        session.id = user.id;
+        await session.save();
         redirect("/profile");
     }
 }
