@@ -1,9 +1,12 @@
 export async function userEmailResponse(access_token: string) {
-    const { email } = await (await fetch("https://api.github.com/user/emails", {
+    const emails = await (await fetch("https://api.github.com/user/emails", {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
         cache: "no-cache",
     })).json();
-    return { email };
-}
+    const primaryEmail = emails.find((email: { primary: boolean; }) => email.primary === true);
+    return primaryEmail.email;
+};
+
+

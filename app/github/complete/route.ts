@@ -1,6 +1,5 @@
 import db from "@/lib/database";
-import getSession from "@/lib/session";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { NextRequest } from "next/server";
 import { accessTokenResponse } from "./getAccessToken";
 import { userProfileResponse } from "./userProfileResponse";
@@ -26,7 +25,8 @@ export async function GET(request: NextRequest) {
         });
     }
     const { id, avatar_url, login } = await userProfileResponse(access_token);
-    const { email } = await userEmailResponse(access_token);
+    const email = await userEmailResponse(access_token);
+    console.log(email);
     const user = await db.user.findUnique({
         where: {
             github_id: id + ""
