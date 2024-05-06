@@ -4,6 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 import { accessTokenResponse } from "./getAccessToken";
 import { userProfileResponse } from "./userProfileResponse";
+import { userEmailResponse } from "./userEmailResponse";
+import { createSession } from "./createSession";
 
 export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
@@ -24,6 +26,7 @@ export async function GET(request: NextRequest) {
         });
     }
     const { id, avatar_url, login } = await userProfileResponse(access_token);
+    const { email } = await userEmailResponse(access_token);
     const user = await db.user.findUnique({
         where: {
             github_id: id + ""
@@ -33,10 +36,7 @@ export async function GET(request: NextRequest) {
         }
     });
     if (user) {
-        const session = await getSession();
-        session.id = user.id;
-        await session.save();
-        return redirect("/profile");
+        return createSession(user.id);
     }
     const newUser = await db.user.create({
         data: {
@@ -48,9 +48,6 @@ export async function GET(request: NextRequest) {
             id: true,
         }
     });
-    const session = await getSession();
-    session.id = newUser.id;
-    await session.save();
-    return redirect("/profile");
+    return createSession(newUser.id);
 }
 
