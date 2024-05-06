@@ -2,6 +2,8 @@ import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
+import { accessTokenResponse } from "./getAccessToken";
+import { userProfileResponse } from "./userProfileResponse";
 
 export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
@@ -14,25 +16,14 @@ export async function GET(request: NextRequest) {
         code,
     }).toString();
     const accessTokenUrl = `https://github.com/login/oauth/access_token?${accessTokenParams}`;
-    const accessTokenResponse = await fetch(accessTokenUrl, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-        },
-    });
-    const { error, access_token } = await accessTokenResponse.json();
+    const { error, access_token } = await accessTokenResponse(accessTokenUrl);
+
     if (error) {
         return new Response(null, {
             status: 400,
         });
     }
-    const userProfileResponse = await fetch("https://api.github.com/user", {
-        headers: {
-            Authorization: `Bearer ${access_token}`,
-        },
-        cache: "no-cache",
-    });
-    const { id, avatar_url, login } = await userProfileResponse.json();
+    const { id, avatar_url, login } = await userProfileResponse(access_token);
     const user = await db.user.findUnique({
         where: {
             github_id: id + ""
