@@ -4,7 +4,7 @@ import { formatToDollar } from "@/lib/utils";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 async function getIsOwner(userId: number) {
     const session = await getSession();

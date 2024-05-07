@@ -1,9 +1,9 @@
 "use client";
 
-import { InitialProducts } from "@/app/(tabs)/products/page";
+import { InitialProducts } from "@/app/(tabs)/home/page";
 import ListProduct from "./list-product";
 import { useEffect, useRef, useState } from "react";
-import { getMoreProducts } from "@/app/(tabs)/products/actions";
+import { getMoreProducts } from "@/app/(tabs)/home/actions";
 
 interface ProductListProps {
     initialProducts: InitialProducts;
@@ -27,8 +27,8 @@ export default function ProductList({ initialProducts }: ProductListProps) {
                     setIsLoading(true);
                     const newProducts = await getMoreProducts(page + 1);
                     if (newProducts.length !== 0) {
-                        setPage((prev) => prev + 1);
                         setProducts((prev) => [...prev, ...newProducts]);
+                        setPage((prev) => prev + 1);
                     } else {
                         setIsLastPage(true);
                     }
@@ -54,12 +54,9 @@ export default function ProductList({ initialProducts }: ProductListProps) {
             {!isLastPage ? (
                 <span
                     ref={trigger}
-                    style={{
-                        marginTop: `${page + 1 * 900}vh`,
-                    }}
-                    className="mb-96 text-sm font-semibold bg-orange-500 w-fit mx-auto px-3 py-2 rounded-md hover:opacity-90 active:scale-95"
+                    className="text-sm font-semibold bg-orange-500 w-fit mx-auto px-3 py-2 rounded-md hover:opacity-90 active:scale-95"
                 >
-                    {isLoading ? "로딩 중" : "Load more"}
+                    {isLoading ? "Loading" : "Load more"}
                 </span>
             ) : null}
         </div>

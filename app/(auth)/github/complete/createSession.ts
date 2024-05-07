@@ -5,7 +5,7 @@ export async function createSession(id: number) {
     const session = await getSession();
     session.id = id;
     await session.save();
-    return redirect("/profile");
+    return redirect("/home");
 }
 
 
