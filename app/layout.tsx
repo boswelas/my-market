@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Karrot Market",
     default: "Karrot Market",
   },
-  description: "Sell and Buy!",
+  description: "Sell and buy all the things!",
 };
 
 export default function RootLayout({
@@ -19,8 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} 
-      bg-neutral-900 text-white max-w-screen-sm mx-auto`}
+      <body
+        className={`${inter.className} bg-neutral-900 text-white max-w-screen-sm mx-auto`}
       >
         {children}
       </body>
