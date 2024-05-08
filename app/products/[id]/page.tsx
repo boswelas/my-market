@@ -87,14 +87,21 @@ export default async function ProductDetail({
                     ${formatToDollar(product.price)}
                 </span>
                 {isOwner ? (
+                    <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                        Edit product
+                    </button>
+
+                ) : null}
+                {isOwner ? (
                     <button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
                         Delete product
                     </button>
+
                 ) : null}
+
                 <Link
                     className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold"
-                    href={``}
-                >
+                    href={``}>
                     Chat
                 </Link>
             </div>
