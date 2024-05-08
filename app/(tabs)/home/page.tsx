@@ -27,6 +27,8 @@ export const metadata = {
     title: "Home",
 };
 
+export const revalidate = 30;
+
 export default async function Products() {
     const initialProducts = await getInitialProducts();
     return (

@@ -4,6 +4,7 @@ import { z } from "zod";
 import fs from "fs/promises";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import db from "@/lib/database";
 
 const productSchema = z.object({
@@ -55,8 +56,8 @@ export async function uploadProduct(_: any, formData: FormData) {
                     id: true,
                 },
             });
+            revalidatePath("/home");
             redirect(`/products/${product.id}`);
-            //redirect("/products")
         }
     }
 }
