@@ -3,8 +3,7 @@ import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 async function getIsOwner(userId: number) {
     const session = await getSession();
@@ -55,7 +54,26 @@ export default async function ProductDetail({
         return notFound();
     }
     const isOwner = await getIsOwner(product.userId);
+    const createChatRoom = async () => {
+        "use server";
+        const session = await getSession();
+        const room = await db.chatRoom.create({
+            data: {
+                users: {
+                    connect: [{
+                        id: product.userId
+                    }, {
 
+                        id: session.id
+                    },],
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+        redirect(`../chats/${room.id}`)
+    }
     return (
         <div>
             <div className="relative aspect-square">
@@ -96,14 +114,13 @@ export default async function ProductDetail({
                     <button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
                         Delete product
                     </button>
-
                 ) : null}
-
-                <Link
-                    className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold"
-                    href={``}>
-                    Chat
-                </Link>
+                <form action={createChatRoom}>
+                    <button
+                        className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                        Chat
+                    </button>
+                </form>
             </div>
         </div>
     );
