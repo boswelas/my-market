@@ -19,6 +19,18 @@ interface ChatMessageListProps {
     avatar: string;
 }
 
+function isLessThanOneDay(timestamp: Date) {
+    const messageTime = new Date(timestamp).getTime();
+    const currentTime = new Date().getTime();
+    const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+    return (currentTime - messageTime) < oneDayInMilliseconds;
+}
+
+function formatToTime(timestamp: string) {
+    const time = new Date(timestamp);
+    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 export default function ChatMessagesList({ initialMessages, userId, chatRoomId, username, avatar }: ChatMessageListProps) {
     const [messages, setMessages] = useState(initialMessages);
     const [message, setMessage] = useState("");
@@ -80,7 +92,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                         {message.payload}
                     </span>
                     <span className="text-xs">
-                        {formatToTimeAgo(message.created_at.toString())}
+                        {isLessThanOneDay(message.created_at) ? formatToTime(message.created_at.toString()) : formatToTimeAgo(message.created_at.toString())}
                     </span>
                 </div>
             </div>
