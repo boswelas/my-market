@@ -74,6 +74,17 @@ export default async function ProductDetail({
         });
         redirect(`../chats/${room.id}`)
     }
+    const deleteProduct = async () => {
+        "use server"
+        const deleteProd = await db.product.update({
+            where: {
+                id: product.id,
+            }, data: {
+                visible: false
+            }
+        });
+        redirect(`../profile`)
+    }
     return (
         <div>
             <div className="relative aspect-square">
@@ -111,16 +122,16 @@ export default async function ProductDetail({
 
                 ) : null}
                 {isOwner ? (
-                    <button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                    <form action={deleteProduct}><button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
                         Delete product
-                    </button>
-                ) : null}
-                <form action={createChatRoom}>
+                    </button></form>
+                ) : <form action={createChatRoom}>
                     <button
                         className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
                         Chat
                     </button>
-                </form>
+                </form>}
+
             </div>
         </div>
     );
