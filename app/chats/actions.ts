@@ -12,5 +12,13 @@ export async function saveMessage(payload: string, chatRoomId: string) {
             userId: session.id!,
         },
         select: { id: true },
-    });
-}
+    })
+    const updateChat = await db.chatRoom.update({
+        where: {
+            id: chatRoomId,
+        },
+        data: {
+            updated_at: new Date(),
+        }
+    })
+};
