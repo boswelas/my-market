@@ -53,12 +53,8 @@ export default function ProductList({ initialProducts }: ProductListProps) {
             ))}
             {!isLastPage ? (
                 <span
-                    ref={trigger}
-                    className="text-sm font-semibold bg-orange-500 w-fit mx-auto px-3 py-2 rounded-md hover:opacity-90 active:scale-95"
-                >
-                    {isLoading ? "Loading" : "Load more"}
-                </span>
-            ) : null}
+                    ref={trigger} />
+            ) : <span className="mt-5 text-sm text-neutral-400 inline-block text-center align-middle">End of Products</span>}
         </div>
     );
 }
