@@ -63,7 +63,6 @@ function formatToTime(timestamp: string) {
 
 export default async function Life() {
     const chats = await getChats();
-    console.log(chats);
     if (!chats || chats.length === 0) {
         return <div>No Chats to Display</div>
     } else {

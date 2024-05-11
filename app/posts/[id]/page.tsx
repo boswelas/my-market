@@ -1,8 +1,7 @@
 import getSession from "@/lib/session";
 import { formatToTimeAgo } from "@/lib/utils";
-import { EyeIcon, HandThumbUpIcon } from "@heroicons/react/24/solid";
-import { HandThumbUpIcon as OutlineHandThumbUpIcon } from "@heroicons/react/24/outline";
-import { unstable_cache, revalidateTag } from "next/cache";
+import { EyeIcon } from "@heroicons/react/24/solid";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import db from "@/lib/database";
