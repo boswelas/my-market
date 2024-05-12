@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowUpCircleIcon, UserIcon } from "@heroicons/react/24/solid";
 import { RealtimeChannel, createClient } from "@supabase/supabase-js";
 import { saveMessage } from "@/app/chats/actions";
+import CloseButton from "./close-button";
 
 const SUPABASE_PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yanJtb3hqa294Y2N4YnF2c2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTUzNjgxMDcsImV4cCI6MjAzMDk0NDEwN30.oSXm_kBBRyGEaCNZp1qzq1t3glV1AKTtUqREcTA_xJg";
 const SUPABASE_URL = "https://mrjrmoxjkoxccxbqvsez.supabase.co";
@@ -77,6 +78,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     }, [chatRoomId]);
 
     return <div className="p-5 flex flex-col gap-5 min-h-screen justify-end">
+        <CloseButton />
         {messages.map((message) => (
             <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
                 {message.userId === userId ? null : (

@@ -81,7 +81,7 @@ export default async function Life() {
                                         <img src={chatroom.users[0].avatar!} alt={chatroom.users[0].username} className="w-8 h-8 rounded-full" />
                                         <span className="ml-3 text-xl text-white">{chatroom.users[0].username}</span>
                                     </div>
-                                    <span>{isLessThanOneDay(chatroom.messages[0].updated_at) ? formatToTime(chatroom.messages[0].updated_at.toString()) : formatToTimeAgo(chatroom.updated_at.toString())}</span>
+                                    <span>{isLessThanOneDay(chatroom.updated_at) ? formatToTime(chatroom.updated_at.toString()) : formatToTimeAgo(chatroom.updated_at.toString())}</span>
                                 </div>
                                 <div className="pb-5 mb-5">
                                     <span className="ml-11">{chatroom.messages.map(message => message.payload)}</span>
