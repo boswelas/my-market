@@ -85,6 +85,11 @@ export default async function ProductDetail({
         });
         redirect(`../profile`)
     }
+
+    const editProduct = async () => {
+        "use server"
+        redirect(`./edit/${product.id}`)
+    };
     return (
         <div>
             <div className="relative aspect-square">
@@ -116,9 +121,11 @@ export default async function ProductDetail({
                     ${formatToDollar(product.price)}
                 </span>
                 {isOwner ? (
-                    <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
-                        Edit product
-                    </button>
+                    <form action={editProduct}>
+                        <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                            Edit product
+                        </button></form>
+
 
                 ) : null}
                 {isOwner ? (
