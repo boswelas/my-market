@@ -8,8 +8,9 @@ import db from "@/lib/database";
 import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
 import SubmitComment from "@/components/comment-submit";
-import { ArrowUpCircleIcon } from "@heroicons/react/24/solid";
-import { commentOnPost } from "./actions";
+import { Prisma } from "@prisma/client";
+import CommentList from "@/components/comment-list";
+
 
 
 async function getPost(id: number) {
@@ -95,6 +96,9 @@ async function getComments(id: number) {
     return comments;
 }
 
+export type InitialComments = Prisma.PromiseReturnType<typeof getComments>;
+
+
 export default async function PostDetail({
     params,
 }: {
@@ -139,29 +143,8 @@ export default async function PostDetail({
                     <span>{post.views}</span>
                     <LikeButton isLiked={isLiked} likeCount={likeCount} postId={id} />
                 </div>
-                    <SubmitComment postId={id} />
-                <div>
-                    <h3 className="text-lg font-semibold mb-2">Comments</h3>
-                    {comments.map((comment, index) => (
-                        <div key={index} className="flex items-center gap-3 mt-5">
-                            <div >
-                                <div className="flex items-center gap-3"> <Image
-                                    width={28}
-                                    height={28}
-                                    className="size-7 rounded-full"
-                                    src={comment.user.avatar!}
-                                    alt={comment.user.username}
-                                />
-                                    <span className="text-xs font-bold ">{comment.user.username}</span>
-                                    <span>·</span>
-                                    <span className="text-xs text-neutral-400">{comment.updated_at.toDateString()}</span>
-                                </div>
-                                <div className="mt-1 ml-10 text-sm">
-                                    <span>{comment.payload}</span></div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <SubmitComment postId={id} />
+                <CommentList initialComments={comments} />
             </div>
         </div>
     );
