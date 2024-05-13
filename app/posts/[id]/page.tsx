@@ -7,9 +7,8 @@ import { notFound } from "next/navigation";
 import db from "@/lib/database";
 import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
-import SubmitComment from "@/components/comment-submit";
 import { Prisma } from "@prisma/client";
-import CommentList from "@/components/comment-list";
+import CommentSection from "@/components/comment-section";
 
 
 
@@ -143,8 +142,7 @@ export default async function PostDetail({
                     <span>{post.views}</span>
                     <LikeButton isLiked={isLiked} likeCount={likeCount} postId={id} />
                 </div>
-                <SubmitComment postId={id} />
-                <CommentList initialComments={comments} />
+                <CommentSection postId={id} initialComments={comments} />
             </div>
         </div>
     );

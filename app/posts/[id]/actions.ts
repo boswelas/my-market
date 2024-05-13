@@ -49,7 +49,6 @@ export async function commentOnPost(_: any, formData: FormData) {
         postId: formData.get("postId"),
         payload: formData.get("payload"),
     };
-    console.log(data);
     const result = commentSchema.safeParse(data);
     if (!result.success) {
         return result.error.flatten();
@@ -66,8 +65,7 @@ export async function commentOnPost(_: any, formData: FormData) {
                     id: true,
                 },
             });
-            // revalidatePath("/home");
-            // redirect(`/products/${product.id}`);
+            revalidatePath(`/posts/${result.data.postId}`);
         }
     }
 };
