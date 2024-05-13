@@ -1,12 +1,15 @@
 import getSession from "@/lib/session";
 import { formatToTimeAgo } from "@/lib/utils";
-import { EyeIcon } from "@heroicons/react/24/solid";
+import { ArrowUpCircleIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import db from "@/lib/database";
 import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
+import { useOptimistic } from "react";
+import SubmitComment from "@/components/comment-submit";
+
 
 async function getPost(id: number) {
     try {
@@ -107,6 +110,9 @@ export default async function PostDetail({
 
     const { likeCount, isLiked } = await getCachedLikeStatus(id);
     const comments = await getComments(post.id);
+
+
+
     return (
         <div className="p-5 text-white">
             <CloseButton />
@@ -133,6 +139,8 @@ export default async function PostDetail({
                     <span>{post.views}</span>
                     <LikeButton isLiked={isLiked} likeCount={likeCount} postId={id} />
                 </div>
+
+                <SubmitComment />
                 <div>
                     <h3 className="text-lg font-semibold mb-2">Comments</h3>
                     {comments.map((comment, index) => (
