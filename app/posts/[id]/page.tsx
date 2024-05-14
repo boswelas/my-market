@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import db from "@/lib/database";
 import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
-import { Prisma } from "@prisma/client";
 import CommentSection from "@/components/comment-section";
 
 
@@ -31,12 +30,12 @@ async function getPost(id: number) {
                     },
                 }, comments: {
                     select: {
-                        payload: true, 
+                        payload: true,
                         updated_at: true,
                         user: {
                             select: {
-                                avatar: true, 
-                                username: true, 
+                                avatar: true,
+                                username: true,
                             },
                         },
                     },
@@ -87,6 +86,25 @@ function getCachedLikeStatus(postId: number) {
     return cachedOperation(postId);
 }
 
+async function getCurrentUser() {
+    try {
+        const session = await getSession();
+        const userId = await session.id!;
+        const user = await db.user.findUnique({
+            where: {
+                id: userId,
+            },
+            select: {
+                username: true,
+                avatar: true,
+            },
+        });
+        return user;
+    } catch (e) {
+        return null;
+    }
+}
+
 export default async function PostDetail({
     params,
 }: {
@@ -103,7 +121,8 @@ export default async function PostDetail({
 
     const { likeCount, isLiked } = await getCachedLikeStatus(id);
     const comments = post.comments;
-
+    const user = await getCurrentUser();
+    const currentUser = user || { username: '', avatar: null };
 
     return (
         <div className="p-5 text-white">
@@ -131,7 +150,7 @@ export default async function PostDetail({
                     <span>{post.views}</span>
                     <LikeButton isLiked={isLiked} likeCount={likeCount} postId={id} />
                 </div>
-                <CommentSection postId={id} comments={comments} />
+                <CommentSection postId={id} user={currentUser} comments={comments} />
             </div>
         </div>
     );
