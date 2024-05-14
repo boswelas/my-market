@@ -3,7 +3,7 @@ import { ArrowUpCircleIcon } from "@heroicons/react/24/solid";
 import CommentList from "./comment-list"
 import { useFormState } from "react-dom";
 import { commentOnPost } from "@/app/posts/[id]/actions";
-import { useOptimistic } from "react";
+import { useOptimistic, useRef } from "react";
 
 interface userProps {
     username: string;
@@ -23,6 +23,8 @@ interface CommentSectionProps {
 
 
 export default function CommentSection({ postId, user, comments }: { postId: number; user: userProps; comments: CommentSectionProps[] }) {
+    const formRef = useRef<HTMLFormElement>(null); // Create a ref for the form element
+
     const [optimisticState, reducerFn] = useOptimistic(
         comments,
         (previousComments, payload: CommentSectionProps) => [...previousComments, payload]
@@ -39,6 +41,7 @@ export default function CommentSection({ postId, user, comments }: { postId: num
             payload: formData.get("payload")!.toString(),
         }
         reducerFn(newComment);
+        formRef.current?.reset();
         return commentOnPost(_, formData);
     }
     const [_, action] = useFormState(interceptAction, null);
@@ -46,7 +49,7 @@ export default function CommentSection({ postId, user, comments }: { postId: num
     return (
         <div className="w-full">
             <div>
-                <form action={action} className="flex relative" >
+                <form ref={formRef} action={action} className="flex relative" >
                     <input type="hidden" name="postId" value={postId} />
 
                     <input required
