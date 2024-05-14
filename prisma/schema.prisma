@@ -14,7 +14,7 @@ model User {
   password   String?
   phone      String?    @unique
   github_id  String?    @unique
-  avatar     String?
+  avatar     String
   created_at DateTime   @default(now())
   updated_at DateTime   @updatedAt
   SMSToken   SMSToken[]

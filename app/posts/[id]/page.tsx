@@ -29,6 +29,17 @@ async function getPost(id: number) {
                         username: true,
                         avatar: true,
                     },
+                }, comments: {
+                    select: {
+                        payload: true, 
+                        updated_at: true,
+                        user: {
+                            select: {
+                                avatar: true, 
+                                username: true, 
+                            },
+                        },
+                    },
                 },
                 _count: {
                     select: {
@@ -76,28 +87,6 @@ function getCachedLikeStatus(postId: number) {
     return cachedOperation(postId);
 }
 
-async function getComments(id: number) {
-    const comments = await db.comment.findMany({
-        where: {
-            postId: id,
-        },
-        select: {
-            payload: true,
-            updated_at: true,
-            user: {
-                select: {
-                    username: true,
-                    avatar: true,
-                }
-            }
-        },
-    });
-    return comments;
-}
-
-export type InitialComments = Prisma.PromiseReturnType<typeof getComments>;
-
-
 export default async function PostDetail({
     params,
 }: {
@@ -113,7 +102,7 @@ export default async function PostDetail({
     }
 
     const { likeCount, isLiked } = await getCachedLikeStatus(id);
-    const comments = await getComments(post.id);
+    const comments = post.comments;
 
 
     return (
@@ -142,7 +131,7 @@ export default async function PostDetail({
                     <span>{post.views}</span>
                     <LikeButton isLiked={isLiked} likeCount={likeCount} postId={id} />
                 </div>
-                <CommentSection postId={id} initialComments={comments} />
+                <CommentSection postId={id} comments={comments} />
             </div>
         </div>
     );

@@ -4,14 +4,11 @@ import { HandThumbUpIcon as OutlineHandThumbUpIcon } from "@heroicons/react/24/o
 import { useOptimistic } from "react";
 import { dislikePost, likePost } from "@/app/posts/[id]/actions";
 
-
 interface LikeButtonProps {
     isLiked: boolean,
     likeCount: number;
     postId: number,
 }
-
-
 
 export default function LikeButton({ isLiked, likeCount, postId }: LikeButtonProps) {
     const [state, reducerFn] = useOptimistic({ isLiked, likeCount }, (previousState, payload) => {
