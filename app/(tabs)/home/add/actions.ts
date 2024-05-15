@@ -6,6 +6,11 @@ import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import db from "@/lib/database";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/components/firebase"
+import { createHash } from 'crypto';
+import { randomBytes } from 'crypto';
+
 
 const productSchema = z.object({
     photo: z.string({
@@ -23,6 +28,7 @@ const productSchema = z.object({
 });
 
 export async function uploadProduct(_: any, formData: FormData) {
+    const session = await getSession();
     const data = {
         photo: formData.get("photo"),
         title: formData.get("title"),
@@ -30,34 +36,39 @@ export async function uploadProduct(_: any, formData: FormData) {
         description: formData.get("description"),
     };
     if (data.photo instanceof File) {
-        const photoData = await data.photo.arrayBuffer();
-        await fs.appendFile(`./public/${data.photo.name}`, Buffer.from(photoData));
-        data.photo = `/${data.photo.name}`;
+        if (session.id) {
+            const timestamp = Date.now().toString();
+            const hashedUserId = createHash('sha256').update(session.id.toString()).digest('hex');
+
+            const storageRef = await ref(storage, 'images/' + `${hashedUserId}` + `${timestamp}`);
+            const uploadTask = await uploadBytes(storageRef, data.photo);
+            const downloadURL = await getDownloadURL(uploadTask.ref);
+            console.log('File available at', downloadURL);
+            data.photo = `${downloadURL}`;
+        }
     }
     const result = productSchema.safeParse(data);
     if (!result.success) {
         return result.error.flatten();
     } else {
-        const session = await getSession();
-        if (session.id) {
-            const product = await db.product.create({
-                data: {
-                    title: result.data.title,
-                    description: result.data.description,
-                    price: result.data.price,
-                    photo: result.data.photo,
-                    user: {
-                        connect: {
-                            id: session.id,
-                        },
+        const product = await db.product.create({
+            data: {
+                title: result.data.title,
+                description: result.data.description,
+                price: result.data.price,
+                photo: result.data.photo,
+                user: {
+                    connect: {
+                        id: session.id,
                     },
                 },
-                select: {
-                    id: true,
-                },
-            });
-            revalidatePath("/home");
-            redirect(`/products/${product.id}`);
-        }
+            },
+            select: {
+                id: true,
+            },
+        });
+        revalidatePath("/home");
+        redirect(`/products/${product.id}`);
     }
 }
+

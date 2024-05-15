@@ -9,6 +9,7 @@ import { useFormState } from "react-dom";
 
 export default function AddProduct() {
     const [preview, setPreview] = useState("");
+
     const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { files },
@@ -21,6 +22,7 @@ export default function AddProduct() {
         setPreview(url);
     };
     const [state, action] = useFormState(uploadProduct, null);
+
     return (
         <div>
             <form action={action} className="p-5 flex flex-col gap-5">
