@@ -1,6 +1,7 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
@@ -90,9 +91,17 @@ export default async function ProductDetail({
         "use server"
         redirect(`./edit/${product.id}`)
     };
+
+    const onCloseClick = () => { redirect("/home") };
+
     return (
         <div>
+
             <div className="relative aspect-square">
+                <button onClick={onCloseClick}
+                    className="absolute right-5 top-5">
+                    <XMarkIcon className="size-10" />
+                </button>
                 <Image fill src={product.photo} alt={product.title} className="object-cover" />
             </div>
             <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
