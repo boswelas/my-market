@@ -5,6 +5,13 @@ import fs from "fs/promises";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import db from "@/lib/database";
+import getSession from "@/lib/session";
+import { createHash } from "crypto";
+import { storage } from "@/components/firebase"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { randomBytes } from 'crypto';
+
+
 
 const productSchema = z.object({
     id: z.coerce.number({}),
@@ -23,6 +30,8 @@ const productSchema = z.object({
 });
 
 export async function updateProduct(_: any, formData: FormData) {
+    const session = await getSession();
+
     const data = {
         id: formData.get("id"),
         photo: formData.get("photo"),
@@ -31,9 +40,16 @@ export async function updateProduct(_: any, formData: FormData) {
         description: formData.get("description"),
     };
     if (data.photo instanceof File) {
-        const photoData = await data.photo.arrayBuffer();
-        await fs.appendFile(`./public/${data.photo.name}`, Buffer.from(photoData));
-        data.photo = `/${data.photo.name}`;
+        if (session.id) {
+            const timestamp = Date.now().toString();
+            const hashedUserId = createHash('sha256').update(session.id.toString()).digest('hex');
+
+            const storageRef = await ref(storage, 'images/' + `${hashedUserId}` + `${timestamp}`);
+            const uploadTask = await uploadBytes(storageRef, data.photo);
+            const downloadURL = await getDownloadURL(uploadTask.ref);
+            console.log('File available at', downloadURL);
+            data.photo = `${downloadURL}`;
+        }
     }
     const result = productSchema.safeParse(data);
     if (!result.success) {
