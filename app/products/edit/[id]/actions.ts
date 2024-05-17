@@ -39,23 +39,26 @@ export async function updateProduct(_: any, formData: FormData) {
         price: formData.get("price"),
         description: formData.get("description"),
     };
+
     if (data.photo instanceof File) {
+        console.log("photo is File");
         if (session.id) {
             const timestamp = Date.now().toString();
             const hashedUserId = createHash('sha256').update(session.id.toString()).digest('hex');
-
             const storageRef = await ref(storage, 'images/' + `${hashedUserId}` + `${timestamp}`);
             const uploadTask = await uploadBytes(storageRef, data.photo);
             const downloadURL = await getDownloadURL(uploadTask.ref);
             console.log('File available at', downloadURL);
             data.photo = `${downloadURL}`;
+        } else {
+            data.photo = formData.get('existingPhoto');
         }
+
     }
     const result = productSchema.safeParse(data);
     if (!result.success) {
         return result.error.flatten();
     } else {
-
         const product = await db.product.update({
             where: {
                 id: result.data.id,
