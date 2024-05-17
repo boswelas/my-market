@@ -92,14 +92,8 @@ export default async function ProductDetail({
         redirect(`./edit/${product.id}`)
     };
 
-    const onCloseClick = () => { redirect("/home") };
-
     return (
         <div>
-            <button onClick={onCloseClick}
-                className="absolute right-5 top-5">
-                <XMarkIcon className="size-10" />
-            </button>
             <div className="relative aspect-square">
 
                 <Image fill src={product.photo} alt={product.title} className="object-cover" />
