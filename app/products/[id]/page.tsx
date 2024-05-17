@@ -128,8 +128,6 @@ export default async function ProductDetail({
                         <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
                             Edit product
                         </button></form>
-
-
                 ) : null}
                 {isOwner ? (
                     <form action={deleteProduct}><button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">

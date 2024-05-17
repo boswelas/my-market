@@ -12,6 +12,7 @@ const publicOnlyUrls: Routes = {
     "/create-account": true,
     "/github/start": true,
     "/github/complete": true,
+    "/products/1": true,
 };
 
 export async function middleware(request: NextRequest) {
