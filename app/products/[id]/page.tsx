@@ -1,7 +1,7 @@
+import CloseProductButton from "@/components/close-product-button";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
@@ -94,6 +94,9 @@ export default async function ProductDetail({
 
     return (
         <div>
+            <div>
+                <CloseProductButton />
+            </div>
             <div className="relative aspect-square">
 
                 <Image fill src={product.photo} alt={product.title} className="object-cover" />

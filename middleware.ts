@@ -11,7 +11,11 @@ const publicOnlyUrls: Routes = {
     "/sms": true,
     "/create-account": true,
     "/github/start": true,
-    "/github/complete": true,};
+    "/github/complete": true,
+    // "/products/1": true,
+    // "/profile": true,
+    // "/home": true,
+};
 
 export async function middleware(request: NextRequest) {
     const session = await getSession();
