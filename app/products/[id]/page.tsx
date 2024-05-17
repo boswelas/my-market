@@ -96,12 +96,12 @@ export default async function ProductDetail({
 
     return (
         <div>
-
+            <button onClick={onCloseClick}
+                className="absolute right-5 top-5">
+                <XMarkIcon className="size-10" />
+            </button>
             <div className="relative aspect-square">
-                <button onClick={onCloseClick}
-                    className="absolute right-5 top-5">
-                    <XMarkIcon className="size-10" />
-                </button>
+
                 <Image fill src={product.photo} alt={product.title} className="object-cover" />
             </div>
             <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
