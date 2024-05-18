@@ -50,7 +50,6 @@ export default function EditProductForm({ id, title, photo, price, description, 
                     name="photo"
                     accept="image/*"
                     className="hidden"
-                    defaultValue={photo}
                 />
                 <Input
                     name="title"

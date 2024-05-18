@@ -50,10 +50,9 @@ export async function updateProduct(_: any, formData: FormData) {
             const downloadURL = await getDownloadURL(uploadTask.ref);
             console.log('File available at', downloadURL);
             data.photo = `${downloadURL}`;
-        } else {
-            data.photo = formData.get('existingPhoto');
         }
-
+    } else {
+        data.photo = formData.get('existingPhoto');
     }
     const result = productSchema.safeParse(data);
     if (!result.success) {
