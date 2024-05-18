@@ -50,7 +50,7 @@ export default function EditProductForm({ id, title, photo, price, description, 
                     name="photo"
                     accept="image/*"
                     className="hidden"
-                    defaultValue={`url(${photo})`}
+                    defaultValue={photo}
                 />
                 <Input
                     name="title"
