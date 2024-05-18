@@ -39,7 +39,7 @@ export async function updateProduct(_: any, formData: FormData) {
         price: formData.get("price"),
         description: formData.get("description"),
     };
-
+    console.log(data.photo);
     if (data.photo instanceof File) {
         console.log("photo is File");
         if (session.id) {
