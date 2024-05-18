@@ -17,6 +17,8 @@ interface EditFormProps {
 
 export default function EditProductForm({ id, title, photo, price, description, userId }: EditFormProps) {
     const [preview, setPreview] = useState(photo);
+    const [formPhoto, setPhoto] = useState<File | null>(null);
+
     const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { files },
@@ -27,8 +29,20 @@ export default function EditProductForm({ id, title, photo, price, description, 
         const file = files[0];
         const url = URL.createObjectURL(file);
         setPreview(url);
+        setPhoto(file);
     };
-    const [state, action] = useFormState(updateProduct, null);
+
+    const interceptAction = async (_: any, formData: FormData) => {
+        if (formPhoto) {
+            formData.set("photo", formPhoto);
+        } else { formData.set("photo", photo); }
+
+        return updateProduct(_, formData);
+    }
+
+    const [state, action] = useFormState(interceptAction, null);
+
+
     console.log(photo);
     return (
         <div>
@@ -73,7 +87,7 @@ export default function EditProductForm({ id, title, photo, price, description, 
                 />
                 <Button text="Update" />
             </form>
-            
+
         </div>
     )
 }
