@@ -41,7 +41,6 @@ export default function EditProductForm({ id, title, photo, price, description, 
                     }}
                 >
                 </label>
-                <input id="existingPhoto" name="existingPhoto" className="hidden" defaultValue={photo} />
                 <input id="id" name="id" className="hidden" defaultValue={id.toString()} />
                 <input
                     onChange={onImageChange}
