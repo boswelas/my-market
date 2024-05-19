@@ -1,6 +1,7 @@
 import db from "@/lib/database";
 import { formatToTimeAgo } from "@/lib/utils";
 import { HandThumbUpIcon } from "@heroicons/react/16/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
@@ -58,6 +59,10 @@ export default async function Life() {
                     </div>
                 </Link>
             ))}
+            <Link href="/life/add-post" className="bg-orange-500 flex items-center justify-center rounded-full 
+            size-16 fixed bottom-24 right-8 text-white transition-colors hover:bg-orange-400">
+                <PlusIcon className="size-10" />
+            </Link>
         </div>
     );
 }
