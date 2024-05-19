@@ -9,7 +9,10 @@ import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
 import CommentSection from "@/components/comment-section";
 
-
+const getCachedPost = unstable_cache(getPost, ["post-detail"], {
+    tags: ["post-detail"],
+    revalidate: 60,
+});
 
 async function getPost(id: number) {
     try {
@@ -52,11 +55,6 @@ async function getPost(id: number) {
         return null;
     }
 }
-
-const getCachedPost = unstable_cache(getPost, ["post-detail"], {
-    tags: ["post-detail"],
-    revalidate: 60,
-});
 
 async function getLikeStatus(postId: number) {
     const session = await getSession();
