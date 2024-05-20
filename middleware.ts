@@ -17,7 +17,7 @@ const publicOnlyUrls: Routes = {
     // "/home": true,
     // "/home/add": true,
     // "/life": true,
-    // "/life/add-post": true,
+    // "/posts/1": true,
 };
 
 export async function middleware(request: NextRequest) {
