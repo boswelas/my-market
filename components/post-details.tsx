@@ -7,6 +7,7 @@ import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
 import CommentSection from "@/components/comment-section";
 import { notFound } from "next/navigation";
+import ChatButton from "./chat-button";
 
 async function getCurrentUser(userId: number) {
     try {
@@ -41,6 +42,7 @@ async function getPost(id: number) {
             include: {
                 user: {
                     select: {
+                        id: true,
                         username: true,
                         avatar: true,
                     },
@@ -83,8 +85,7 @@ const getCachedPost = unstable_cache(getPost, ["post-detail"], {
 });
 
 async function getLikeStatus(postId: number, userId: number) {
-    console.log("post id is ", postId);
-    console.log("user id is ", userId);
+
     const isLiked = await db.like.findUnique({
         where: {
             id: {
@@ -126,8 +127,10 @@ export default async function PostDetails({ userId, postId }: { userId: number; 
                     src={post.user.avatar!}
                     alt={post.user.username}
                 />
-                <div>
-                    <span className="text-sm font-semibold">{post.user.username}</span>
+                <div><div className="flex items-center">
+                    <span className="text-sm font-semibold mr-3">{post.user.username}  </span>
+                    <ChatButton userId={userId} postUser={post.user.id} />
+                </div>
                     <div className="text-xs">
                         <span>{formatToTimeAgo(post.created_at.toString())}</span>
                     </div>
