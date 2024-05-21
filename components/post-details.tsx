@@ -106,8 +106,6 @@ async function getLikeStatus(postId: number, userId: number) {
 }
 
 export default async function PostDetails({ userId, postId }: { userId: number; postId: number }) {
-    console.log("post id is ", postId);
-    console.log("user id is ", userId);
     const post = await getCachedPost(postId);
     if (!post) {
         return notFound();
