@@ -1,4 +1,3 @@
-"use client"
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
