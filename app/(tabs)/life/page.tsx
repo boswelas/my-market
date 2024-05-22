@@ -7,6 +7,9 @@ import Link from "next/link";
 
 async function getPosts() {
     const posts = await db.post.findMany({
+        orderBy: {
+            created_at: 'desc',
+        },
         select: {
             id: true,
             title: true,
