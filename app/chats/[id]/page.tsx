@@ -75,17 +75,12 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
         return notFound();
     }
     return <div>
-        <div className="max-h-96">
-            <ChatMessagesList
-                chatRoomId={params.id}
-                userId={session.id!}
-                username={user.username}
-                avatar={user.avatar!}
-                initialMessages={initialMessages} />
-        </div>
-        <div>
-            <TabBar />
-        </div>
+        <ChatMessagesList
+            chatRoomId={params.id}
+            userId={session.id!}
+            username={user.username}
+            avatar={user.avatar!}
+            initialMessages={initialMessages} />
     </div>
 
 }
