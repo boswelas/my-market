@@ -127,8 +127,7 @@ export default async function PostDetails({ userId, postId }: { userId: number; 
                 />
                 <div><div className="flex items-center">
                     <span className="text-sm font-semibold mr-3">{post.user.username}  </span>
-                    <ChatButton userId={userId} postUser={post.user.id} />
-                </div>
+                    {userId !== post.user.id && <ChatButton userId={userId} postUser={post.user.id} />}                </div>
                     <div className="text-xs">
                         <span>{formatToTimeAgo(post.created_at.toString())}</span>
                     </div>
