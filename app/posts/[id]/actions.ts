@@ -124,6 +124,8 @@ export async function deletePost(postId: number) {
                     id: postId,
                 }
             });
+            revalidatePath("/life")
+            redirect("/life")
         }
     } catch (error) {
         console.error('Error deleting post:', error);

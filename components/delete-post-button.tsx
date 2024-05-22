@@ -11,7 +11,7 @@ export default function DeletePostButton({ postId }: { postId: number }) {
     const onClick = async () => {
         setLoading(true);
         try {
-            let deletePostNow = deletePost(postId);
+            deletePost(postId);
         } catch (error) {
             console.error('Error on button click:', error);
         } finally {
