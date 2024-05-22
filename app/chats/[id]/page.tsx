@@ -1,4 +1,5 @@
 import ChatMessagesList from "@/components/chat-messages-list";
+import TabBar from "@/components/tab-bar";
 import db from "@/lib/database"
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
@@ -73,10 +74,15 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     if (!user) {
         return notFound();
     }
-    return <ChatMessagesList
+    return <div><ChatMessagesList
         chatRoomId={params.id}
         userId={session.id!}
         username={user.username}
         avatar={user.avatar!}
         initialMessages={initialMessages} />
+        <div>
+            <TabBar />
+        </div>
+    </div>
+
 }

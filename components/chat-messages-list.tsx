@@ -77,7 +77,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
         }
     }, [chatRoomId]);
 
-    return <div className="p-5 flex flex-col gap-5 min-h-screen justify-end">
+    return <div className="p-5 flex flex-col gap-5 min-h-screen justify-end mb-16">
         <CloseButton />
         {messages.map((message) => (
             <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
