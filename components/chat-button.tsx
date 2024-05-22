@@ -1,8 +1,9 @@
-"use client"
+"use client";
+
 import db from "@/lib/database";
-import getSession from "@/lib/session";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
-import { redirect } from "next/navigation";
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 async function checkExistingChat(userId: number, postUser: number) {
     try {
@@ -16,13 +17,10 @@ async function checkExistingChat(userId: number, postUser: number) {
             select: { id: true },
         });
 
-        if (isChat) {
-            redirect(`../chats/${isChat.id}`);
-        } else {
-            await createChatRoom(userId, postUser);
-        }
+        return isChat ? isChat.id : null;
     } catch (error) {
         console.error('Error checking existing chat:', error);
+        throw error;
     }
 };
 
@@ -37,29 +35,37 @@ async function createChatRoom(userId: number, postUser: number) {
             select: { id: true },
         });
 
-        redirect(`../chats/${room.id}`);
+        return room.id;
     } catch (error) {
         console.error('Error creating chat room:', error);
+        throw error;
     }
 };
 
-
 export default function ChatButton({ userId, postUser }: { userId: number, postUser: number }) {
-
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
     const onClick = async () => {
+        setLoading(true);
         try {
-            await checkExistingChat(userId, postUser);
+            let chatId = await checkExistingChat(userId, postUser);
+            if (!chatId) {
+                chatId = await createChatRoom(userId, postUser);
+            }
+            router.push(`../chats/${chatId}`);
         } catch (error) {
             console.error('Error on button click:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div>
-            <button onClick={onClick} className="font-white">
-                < ChatBubbleBottomCenterIcon className="size-4" />
+            <button onClick={onClick} className="font-white" disabled={loading}>
+                <ChatBubbleBottomCenterIcon className="size-4" />
             </button>
         </div>
-    )
+    );
 }
