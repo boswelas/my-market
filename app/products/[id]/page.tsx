@@ -1,4 +1,5 @@
 import CloseProductButton from "@/components/close-product-button";
+import DeleteProductAlert from "@/components/delete-product";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
@@ -75,17 +76,6 @@ export default async function ProductDetail({
         });
         redirect(`../chats/${room.id}`)
     }
-    const deleteProduct = async () => {
-        "use server"
-        const deleteProd = await db.product.update({
-            where: {
-                id: product.id,
-            }, data: {
-                visible: false
-            }
-        });
-        redirect(`../profile`)
-    }
 
     const editProduct = async () => {
         "use server"
@@ -133,15 +123,15 @@ export default async function ProductDetail({
                         </button></form>
                 ) : null}
                 {isOwner ? (
-                    <form action={deleteProduct}><button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
-                        Delete product
-                    </button></form>
-                ) : <form action={createChatRoom}>
-                    <button
-                        className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
-                        Chat
-                    </button>
-                </form>}
+                    <DeleteProductAlert productId={product.id} />
+                ) :
+                    <form action={createChatRoom}>
+                        <button
+                            className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                            Chat
+                        </button>
+                    </form>
+                }
 
             </div>
         </div>
