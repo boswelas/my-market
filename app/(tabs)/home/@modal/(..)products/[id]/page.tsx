@@ -4,6 +4,7 @@ import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { formatToDollar } from "@/lib/utils";
+import DeleteProductAlert from "@/components/delete-product";
 
 
 
@@ -72,17 +73,6 @@ export default async function Modal({ params }: { params: { id: string } }) {
         });
         redirect(`../chats/${room.id}`)
     }
-    const deleteProduct = async () => {
-        "use server"
-        const deleteProd = await db.product.update({
-            where: {
-                id: product.id,
-            }, data: {
-                visible: false
-            }
-        });
-        redirect(`../profile`)
-    }
 
     const editProduct = async () => {
         "use server"
@@ -127,9 +117,8 @@ export default async function Modal({ params }: { params: { id: string } }) {
 
                 ) : null}
                 {isOwner ? (
-                    <form action={deleteProduct}><button className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
-                        Delete product
-                    </button></form>
+                    <DeleteProductAlert productId={product.id} />
+
                 ) : <form action={createChatRoom}>
                     <button
                         className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
