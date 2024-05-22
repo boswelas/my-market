@@ -106,3 +106,27 @@ export async function createChatRoom(userId: number, postUser: number) {
         throw error;
     }
 };
+
+export async function deletePost(postId: number) {
+    try {
+        const session = await getSession();
+        const user = await session.id;
+        const deletePostFromDB = await db.post.findUnique({
+            where: {
+                id: postId,
+            }, select: {
+                userId: true,
+            }
+        });
+        if (deletePostFromDB!.userId === user) {
+            await db.post.delete({
+                where: {
+                    id: postId,
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        throw error;
+    }
+}
