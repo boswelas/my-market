@@ -2,7 +2,7 @@
 
 import db from "@/lib/database";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 import { useState } from 'react';
 
 async function checkExistingChat(userId: number, postUser: number) {
