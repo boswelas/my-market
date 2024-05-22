@@ -18,6 +18,7 @@ const publicOnlyUrls: Routes = {
     // "/home/add": true,
     // "/life": true,
     // "/posts/1": true,
+    // "/chats/clweafauo0000jonwa2ptk1vl": true,
 };
 
 export async function middleware(request: NextRequest) {
