@@ -70,3 +70,39 @@ export async function commentOnPost(_: any, formData: FormData) {
     }
 };
 
+export async function checkExistingChat(userId: number, postUser: number) {
+    try {
+        const isChat = await db.chatRoom.findFirst({
+            where: {
+                AND: [
+                    { users: { some: { id: userId } } },
+                    { users: { some: { id: postUser } } }
+                ],
+            },
+            select: { id: true },
+        });
+
+        return isChat ? isChat.id : null;
+    } catch (error) {
+        console.error('Error checking existing chat:', error);
+        throw error;
+    }
+};
+
+export async function createChatRoom(userId: number, postUser: number) {
+    try {
+        const room = await db.chatRoom.create({
+            data: {
+                users: {
+                    connect: [{ id: userId }, { id: postUser }],
+                },
+            },
+            select: { id: true },
+        });
+
+        return room.id;
+    } catch (error) {
+        console.error('Error creating chat room:', error);
+        throw error;
+    }
+};
