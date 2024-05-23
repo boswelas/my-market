@@ -90,7 +90,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
                 <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
                     <div className="size-10 rounded-full overflow-hidden">
                         <Image
-                            src={product.user.avatar!}
+                            src={`${product.user.avatar!}`}
                             width={40}
                             height={40}
                             alt={product.user.username}
