@@ -1,8 +1,8 @@
 "use client"
 
-import { InitialChatMessages } from "@/app/chats/[id]/page"
+import { InitialChatMessages } from "@/app/chats/[id]/page";
 import { formatToTimeAgo } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpCircleIcon, UserIcon } from "@heroicons/react/24/solid";
 import { RealtimeChannel, createClient } from "@supabase/supabase-js";
@@ -36,6 +36,22 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     const [messages, setMessages] = useState(initialMessages);
     const [message, setMessage] = useState("");
     const channel = useRef<RealtimeChannel>();
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const isInitialMount = useRef(true);
+
+    const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
+        messagesEndRef.current?.scrollIntoView({ behavior });
+    };
+
+    useEffect(() => {
+        if (isInitialMount.current) {
+            scrollToBottom('auto');
+            isInitialMount.current = false;
+        } else {
+            scrollToBottom('smooth');
+        }
+    }, [messages]);
+
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { value },
@@ -77,40 +93,47 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
         }
     }, [chatRoomId]);
 
-    return <div className="p-5 flex flex-col gap-5 min-h-screen justify-end mb-16">
-        <CloseButton />
-        {messages.map((message) => (
-            <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
-                {message.userId === userId ? null : (
-                    <Image
-                        src={message.user.avatar!}
-                        alt={message.user.username}
-                        width={50}
-                        height={50}
-                        className="size-8 rounded-full"
-                    />)}
-                <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
-                    <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md`}>
-                        {message.payload}
-                    </span>
-                    <span className="text-xs">
-                        {isLessThanOneDay(message.created_at) ? formatToTime(message.created_at.toString()) : formatToTimeAgo(message.created_at.toString())}
-                    </span>
-                </div>
+    return (
+        <div className="p-5 flex flex-col h-screen max-w-full">
+            <CloseButton />
+            <div className="flex-1 overflow-y-auto mb-4">
+                {messages.map((message) => (
+                    <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
+                        {message.userId === userId ? null : (
+                            <Image
+                                src={message.user.avatar!}
+                                alt={message.user.username}
+                                width={50}
+                                height={50}
+                                className="size-8 rounded-full"
+                            />
+                        )}
+                        <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
+                            <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md`}>
+                                {message.payload}
+                            </span>
+                            <span className="text-xs">
+                                {isLessThanOneDay(message.created_at) ? formatToTime(message.created_at.toString()) : formatToTimeAgo(message.created_at.toString())}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+                <div ref={messagesEndRef} />
             </div>
-        ))}
-        <form className="flex relative" onSubmit={onSubmit}>
-            <input required onChange={onChange}
-                value={message}
-                className="bg-transparent rounded-full w-full h-10 focus:outline-none px-5 ring-2 focus:ring-4 transition
-                ring-neutral-200 focus:ring-neutral-50 border-none placeholder:text-neutral-400"
-                type="text"
-                name="message"
-                placeholder="Write message..."
-            />
-            <button className="absolute right-0">
-                <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
-            </button>
-        </form>
-    </div>
-};
+            <form className="flex items-center" onSubmit={onSubmit}>
+                <input
+                    required
+                    onChange={onChange}
+                    value={message}
+                    className="bg-transparent rounded-full w-full h-10 focus:outline-none px-5 ring-2 focus:ring-4 transition ring-neutral-200 focus:ring-neutral-50 border-none placeholder:text-neutral-400"
+                    type="text"
+                    name="message"
+                    placeholder="Write message..."
+                />
+                <button className="ml-2">
+                    <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
+                </button>
+            </form>
+        </div>
+    );
+}
