@@ -6,6 +6,9 @@ import Link from "next/link";
 
 async function getInitialProducts() {
     const products = await db.product.findMany({
+        where: {
+            visible: true,
+        },
         select: {
             title: true,
             price: true,
