@@ -9,7 +9,7 @@ import { IronSession } from "iron-session";
 import { redirect } from "next/navigation";
 import getSession from "@/lib/session";
 
-
+const defaultIcon = "https://firebasestorage.googleapis.com/v0/b/my-market-6f3dd.appspot.com/o/avatars%2Fdefaulticon.jpg?alt=media&token=2dbfdaf4-6ed4-4c3a-8900-45d4faf6cdb3"
 const checkPasswords = ({ password, confirm_password }: { password: string, confirm_password: string }) => password === confirm_password;
 
 const formSchema = z
@@ -92,7 +92,7 @@ export async function createAccount(prevState: any, formData: FormData) {
                 username: result.data.username,
                 email: result.data.email,
                 password: hashedPassword,
-                avatar: "",
+                avatar: defaultIcon,
             },
             select: {
                 id: true,
