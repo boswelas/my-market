@@ -12,14 +12,6 @@ const publicOnlyUrls: Routes = {
     "/create-account": true,
     "/github/start": true,
     "/github/complete": true,
-    // "/products/1": true,
-    // "/profile": true,
-    // "/home": true,
-    // "/home/add": true,
-    // "/life": true,
-    // "/posts/1": true,
-    // "/chat": true,
-    // "/chats/clwilq8ef0001j4fniyg59aux": true,
 };
 
 export async function middleware(request: NextRequest) {

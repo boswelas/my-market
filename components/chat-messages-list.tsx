@@ -94,9 +94,9 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     }, [chatRoomId]);
 
     return (
-        <div className="p-5 flex flex-col h-screen max-w-full">
-            <CloseButton />
-            <div className="flex-1 overflow-y-auto mb-4">
+        <div className="p-5 flex flex-col h-screen max-w-7xl">
+            <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
+                <CloseButton />
                 {messages.map((message) => (
                     <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
                         {message.userId === userId ? null : (
@@ -109,7 +109,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                             />
                         )}
                         <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
-                            <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md`}>
+                            <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md max-w-96`}>
                                 {message.payload}
                             </span>
                             <span className="text-xs">
