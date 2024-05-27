@@ -16,6 +16,7 @@ export async function likePost(postId: number) {
             },
         });
         revalidateTag(`like-status-${postId}`);
+        revalidatePath("/life");
     } catch (e) { }
 };
 
@@ -31,6 +32,7 @@ export async function dislikePost(postId: number) {
             },
         });
         revalidateTag(`like-status-${postId}`);
+        revalidatePath("/life");
     } catch (e) { }
 };
 
@@ -66,6 +68,7 @@ export async function commentOnPost(_: any, formData: FormData) {
                 },
             });
             revalidatePath(`/posts/${result.data.postId}`);
+            revalidatePath("/life");
         }
     }
 };
