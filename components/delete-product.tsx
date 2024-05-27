@@ -27,7 +27,7 @@ export default function DeleteProductAlert({ productId }: { productId: number })
 
     return (
         <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button onClick={handleClickOpen} className="bg-red-500 text-white border-none h-12px-5 py-2.5 rounded-md font-semibold hover:bg-red-500">
                 Delete Product
             </Button>
             <Dialog
