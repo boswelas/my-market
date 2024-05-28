@@ -1,7 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import fs from "fs/promises";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -9,7 +8,6 @@ import db from "@/lib/database";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/components/firebase"
 import { createHash } from 'crypto';
-import { randomBytes } from 'crypto';
 
 
 const productSchema = z.object({
@@ -39,11 +37,9 @@ export async function uploadProduct(_: any, formData: FormData) {
         if (session.id) {
             const timestamp = Date.now().toString();
             const hashedUserId = createHash('sha256').update(session.id.toString()).digest('hex');
-
             const storageRef = await ref(storage, 'images/' + `${hashedUserId}` + `${timestamp}`);
             const uploadTask = await uploadBytes(storageRef, data.photo);
             const downloadURL = await getDownloadURL(uploadTask.ref);
-            console.log('File available at', downloadURL);
             data.photo = `${downloadURL}`;
         }
     }

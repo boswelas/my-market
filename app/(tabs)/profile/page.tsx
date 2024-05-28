@@ -35,9 +35,14 @@ export default async function Profile() {
                     <button>Log out</button>
                 </form>
             </div>
-            <div className=" h-56 w-full bg-neutral-800 rounded-xl">
+            <div className="h-56 w-full bg-neutral-800 rounded-xl">
                 <h1 className="text-center font-semibold text-xl">My Products</h1>
                 <UserProductCarousel />
             </div>
-        </div>)
+            <div className="h-56 w-full bg-neutral-800 rounded-xl">
+                <h1 className="text-center font-semibold text-xl">My Purchases</h1>
+
+            </div>
+        </div>
+    )
 }
