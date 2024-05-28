@@ -1,4 +1,4 @@
-import CloseProductButton from "@/components/close-product-button";
+import CloseButton from "@/components/close-button";
 import DeleteProductAlert from "@/components/delete-product";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
@@ -85,7 +85,7 @@ export default async function ProductDetail({
     return (
         <div>
             <div>
-                <CloseProductButton />
+                <CloseButton />
             </div>
             <div className="relative aspect-square">
 

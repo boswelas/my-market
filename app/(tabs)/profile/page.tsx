@@ -1,3 +1,4 @@
+import UserProductCarousel from "@/components/user-product-carousel";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
@@ -26,8 +27,16 @@ export default async function Profile() {
         redirect("/");
     }
     return (
-        <div>
-            <h1>Welcome {user?.username}!</h1>
-            <form action={logOut}><button>Log out</button></form>
+        <div className="p-5 flex flex-col gap-4">
+            <div >
+                <h1>Welcome {user?.username}!</h1>
+                <form action={logOut}>
+                    <button>Log out</button>
+                </form>
+            </div>
+            <div className=" h-56 w-full bg-neutral-800 rounded-xl">
+                <h1 className="text-center font-semibold text-xl">My Products</h1>
+                <UserProductCarousel />
+            </div>
         </div>)
 }
