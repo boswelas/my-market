@@ -4,7 +4,7 @@ import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { formatToDollar } from "@/lib/utils";
-import DeleteProductAlert from "@/components/delete-product";
+import DeleteProductModal from "@/components/delete-product";
 
 
 
@@ -117,7 +117,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
 
                 ) : null}
                 {isOwner ? (
-                    <DeleteProductAlert productId={product.id} />
+                    <DeleteProductModal productId={product.id} />
 
                 ) : <form action={createChatRoom}>
                     <button

@@ -60,29 +60,19 @@ export default async function editProduct({
     }
     const isOwner = await getIsOwner(product.userId);
 
-    const deleteProduct = async () => {
-        "use server"
-        const deleteProd = await db.product.update({
-            where: {
-                id: product.id,
-            }, data: {
-                visible: false
-            }
-        });
-        redirect(`../profile`)
-    }
-
     if (!isOwner) {
         return notFound();
     } else {
         return (
-            <><CloseButton /><EditProductForm
-                id={product.id}
-                title={product.title}
-                photo={product.photo}
-                price={product.price}
-                description={product.description}
-                userId={product.userId} /></>
+            <>
+                <CloseButton />
+                <EditProductForm
+                    id={product.id}
+                    title={product.title}
+                    photo={product.photo}
+                    price={product.price}
+                    description={product.description}
+                    userId={product.userId} /></>
         );
     }
 }

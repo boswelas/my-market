@@ -1,5 +1,5 @@
 import CloseButton from "@/components/close-button";
-import DeleteProductAlert from "@/components/delete-product";
+import DeleteProductModal from "@/components/delete-product";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
@@ -123,7 +123,7 @@ export default async function ProductDetail({
                         </button></form>
                 ) : null}
                 {isOwner ? (
-                    <DeleteProductAlert productId={product.id} />
+                    <DeleteProductModal productId={product.id} />
                 ) :
                     <form action={createChatRoom}>
                         <button

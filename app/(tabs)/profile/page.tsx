@@ -1,6 +1,7 @@
 import UserProductCarousel from "@/components/user-product-carousel";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 async function getUser() {

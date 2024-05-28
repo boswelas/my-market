@@ -14,6 +14,7 @@ async function getProducts(userId: number) {
             photo: true,
             created_at: true,
         },
+        take: 3,
         orderBy: {
             created_at: "desc",
         }
@@ -27,17 +28,22 @@ export default async function UserProductCarousel() {
     if (user) {
         const products = await getProducts(user);
         return (
-            <div className="flex gap-5 flex-wrap">
-                {products.map((product) => (
-                    <Link key={product.id} href={`/products/${product.id}`} className="flex flex-col items-center w-40 m-2">
-                        <div className="relative w-full h-28 rounded-md overflow-hidden">
-                            <Image fill src={product.photo} alt={product.title} className="object-cover" />
-                        </div>
-                        <div className="flex flex-col items-center mt-2 text-center">
-                            <span className="text-md text-white text-center">{product.title}</span>
-                        </div>
-                    </Link>
-                ))}
+            <div className="relative">
+                <div className="flex gap-5 flex-wrap">
+                    {products.map((product) => (
+                        <Link key={product.id} href={`/products/${product.id}`} className="flex flex-col items-center w-40 m-2">
+                            <div className="relative w-full h-28 rounded-md overflow-hidden">
+                                <Image fill src={product.photo} alt={product.title} className="object-cover" />
+                            </div>
+                            <div className="flex flex-col items-center mt-2 text-center">
+                                <span className="text-md text-white text-center">{product.title}</span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="absolute bottom-0 right-0 m-4">
+                    <Link href="/user-products" className="text-blue-500 text-sm">View All</Link>
+                </div>
             </div>
         );
     }
