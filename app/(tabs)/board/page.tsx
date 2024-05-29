@@ -31,7 +31,7 @@ export const metadata = {
     title: "Forum"
 }
 
-export default async function Life() {
+export default async function Board() {
     const posts = await getPosts();
     return (
         <div className="p-5 flex flex-col">
@@ -62,7 +62,7 @@ export default async function Life() {
                     </div>
                 </Link>
             ))}
-            <Link href="/life/add-post" className="bg-orange-500 flex items-center justify-center rounded-full 
+            <Link href="/board/add-post" className="bg-orange-500 flex items-center justify-center rounded-full 
             size-16 fixed bottom-24 right-8 text-white transition-colors hover:bg-orange-400">
                 <PlusIcon className="size-10" />
             </Link>

@@ -61,7 +61,7 @@ function formatToTime(timestamp: string) {
 }
 
 
-export default async function Life() {
+export default async function Chat() {
     const chats = await getChats();
     if (!chats || chats.length === 0) {
         return <div>No Chats to Display</div>

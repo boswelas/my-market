@@ -42,8 +42,8 @@ export async function uploadPost(_: any, formData: FormData) {
                 id: true,
             },
         });
-        revalidatePath("/life");
-        redirect(`/life`);
+        revalidatePath("/board");
+        redirect(`/board`);
     }
 }
 

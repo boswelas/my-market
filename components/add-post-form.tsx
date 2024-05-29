@@ -1,5 +1,5 @@
 import Button from "./button";
-import { uploadPost } from "@/app/(tabs)/life/add-post/actions";
+import { uploadPost } from "@/app/(tabs)/board/add-post/actions";
 import { useFormState } from "react-dom";
 import Input from "./input";
 

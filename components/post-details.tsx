@@ -7,7 +7,6 @@ import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
 import CommentSection from "@/components/comment-section";
 import { notFound } from "next/navigation";
-import ChatButton from "./chat-button";
 
 async function getCurrentUser(userId: number) {
     try {
@@ -127,7 +126,6 @@ export default async function PostDetails({ userId, postId }: { userId: number; 
                 />
                 <div><div className="flex items-center">
                     <span className="text-sm font-semibold mr-3">{post.user.username}  </span>
-                    {userId !== post.user.id && <ChatButton userId={userId} postUser={post.user.id} />}
                 </div>
                     <div className="text-xs">
                         <span>{formatToTimeAgo(post.created_at.toString())}</span>
