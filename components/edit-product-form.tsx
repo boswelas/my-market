@@ -45,11 +45,11 @@ export default function EditProductForm({ id, title, photo, price, description, 
 
     console.log(photo);
     return (
-        <div>
+        <div className="flex justify-center items-center min-h-screen">
             <form action={action} className="p-5 flex flex-col gap-5">
                 <label
                     htmlFor="photo"
-                    className="border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
+                    className="aspect-square h-[30rem] border-2 flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
                     style={{
                         backgroundImage: `url(${preview})`,
                     }}

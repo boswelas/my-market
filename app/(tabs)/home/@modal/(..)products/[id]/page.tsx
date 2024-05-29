@@ -105,7 +105,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
                     <h1 className="text-2xl font-semibold">{product.title}</h1>
                     <p>{product.description}</p>
                 </div></div>
-            <div className="fixed w-full bottom-0 left-0 p-5 pb-10 bg-neutral-800 flex justify-between items-center">
+            <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
                 <span className="font-semibold text-xl">
                     ${formatToDollar(product.price)}
                 </span>{isOwner ? (
