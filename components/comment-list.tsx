@@ -1,5 +1,5 @@
+import { GetPostTime } from "@/lib/utils";
 import Image from "next/image";
-import { formatToTimeAgo } from "@/lib/utils";
 
 interface Comment {
     updated_at: Date;
@@ -15,6 +15,7 @@ interface CommentListProps {
 }
 
 export default function CommentList({ comments }: CommentListProps) {
+
     return (
         <div>
             <h3 className="text-lg font-semibold mb-2">Comments</h3>
@@ -33,7 +34,7 @@ export default function CommentList({ comments }: CommentListProps) {
                             )}
                             <span className="text-xs font-bold">{comment.user.username}</span>
                             <span>·</span>
-                            <span className="text-xs text-neutral-400">{formatToTimeAgo(comment.updated_at.toString())}</span>
+                            <span className="text-xs text-neutral-400">{GetPostTime(comment.updated_at)}</span>
                         </div>
                         <div className="mt-1 ml-10 text-sm">
                             <span>{comment.payload}</span>

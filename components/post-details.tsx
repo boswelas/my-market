@@ -144,5 +144,4 @@ export default async function PostDetails({ userId, postId }: { userId: number; 
             </div>
         </div>
     )
-
 }
