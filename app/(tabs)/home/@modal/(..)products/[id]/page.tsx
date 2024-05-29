@@ -105,26 +105,27 @@ export default async function Modal({ params }: { params: { id: string } }) {
                     <h1 className="text-2xl font-semibold">{product.title}</h1>
                     <p>{product.description}</p>
                 </div></div>
-            <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
-                <span className="font-semibold text-xl">
-                    ${formatToDollar(product.price)}
-                </span>{isOwner ? (
+            {isOwner ? (
+                <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
+                    <span className="font-semibold text-xl">
+                        ${formatToDollar(product.price)}
+                    </span>
                     <form action={editProduct}>
                         <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
                             Edit product
                         </button></form>
-
-
-                ) : null}
-                {isOwner ? (
                     <DeleteProductModal productId={product.id} />
-
-                ) : <form action={createChatRoom}>
+                </div>
+            ) : <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
+                <span className="font-semibold text-xl flex items-center pl-8">
+                    ${formatToDollar(product.price)}
+                </span> <form action={createChatRoom} className="flex items-center pl-64">
                     <button
-                        className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                        className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
                         Chat
                     </button>
-                </form>}
-            </div></div>
+                </form>
+            </div>}
+        </div>
     );
 }
