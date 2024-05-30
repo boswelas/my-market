@@ -36,11 +36,11 @@ export default async function Profile() {
                 </form>
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
-                <h1 className="text-center font-semibold text-xl">My Products</h1>
+                <h1 className="text-center font-semibold text-xl my-2">My Products</h1>
                 <UserProductCarousel />
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
-                <h1 className="text-center font-semibold text-xl">My Purchases</h1>
+                <h1 className="text-center font-semibold text-xl my-2">My Purchases</h1>
 
             </div>
         </div>

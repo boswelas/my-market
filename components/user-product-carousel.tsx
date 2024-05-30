@@ -29,9 +29,9 @@ export default async function UserProductCarousel() {
         const products = await getProducts(user);
         return (
             <div className="relative">
-                <div className="flex gap-5 flex-wrap">
+                <div className="grid grid-cols-3">
                     {products.map((product) => (
-                        <Link key={product.id} href={`/products/${product.id}`} className="flex flex-col items-center w-40 m-2">
+                        <Link key={product.id} href={`/products/${product.id}`} className="flex flex-col items-center mx-auto w-40 ">
                             <div className="relative w-full h-28 rounded-md overflow-hidden">
                                 <Image fill src={product.photo} alt={product.title} className="object-cover" />
                             </div>
@@ -41,11 +41,12 @@ export default async function UserProductCarousel() {
                         </Link>
                     ))}
                 </div>
-                <div className="absolute bottom-0 right-0 m-4">
+                <div className="flex justify-end mt-2 mr-2">
                     <Link href="/user-products" className="text-blue-500 text-sm">View All</Link>
                 </div>
             </div>
         );
+
     }
 
 }
