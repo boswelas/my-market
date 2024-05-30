@@ -1,6 +1,6 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session";
-import { GetChatTime, formatToTimeAgo } from "@/lib/utils";
+import { GetChatTime } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata = {
@@ -47,19 +47,6 @@ async function getChats() {
     });
     return chats;
 }
-
-function isLessThanOneDay(timestamp: Date) {
-    const messageTime = new Date(timestamp).getTime();
-    const currentTime = new Date().getTime();
-    const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
-    return (currentTime - messageTime) < oneDayInMilliseconds;
-}
-
-function formatToTime(timestamp: string) {
-    const time = new Date(timestamp);
-    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
 
 export default async function Chat() {
     const chats = await getChats();
