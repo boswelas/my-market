@@ -45,8 +45,7 @@ export function GetChatTime(timestamp: Date): string {
     const oneDayInMilliseconds = oneHourInMilliseconds * 24;
     const oneWeekInMilliseconds = oneDayInMilliseconds * 7;
     if (differenceInMilliseconds < oneDayInMilliseconds) {
-        const time = new Date(timestamp);
-        return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return GetChatMessageTime(timestamp)
     } else if (differenceInMilliseconds < oneWeekInMilliseconds) {
         const diffInDays = Math.floor(differenceInMilliseconds / oneDayInMilliseconds);
         return diffInDays === 1 ? '1 day ago' : `${diffInDays} days ago`;
