@@ -91,9 +91,6 @@ model ChatRoom {
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   messages   Message[]
-  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId  Int       @default(1)
-  visible    Boolean   @default(true)
 }
 
 model Message {
