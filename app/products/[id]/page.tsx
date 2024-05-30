@@ -89,39 +89,39 @@ export default async function ProductDetail({
             </div>
             <div className="">
                 <div className="relative aspect-square h-96">
-                    <Image fill src={product.photo} alt={product.title} className="object-cover" />
+                <Image fill src={product.photo} alt={product.title} className="object-cover" />
+            </div>
+            <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
+                <div className="size-10 rounded-full overflow-hidden">
+                    {product.user.avatar !== null ? (
+                        <Image
+                            src={product.user.avatar}
+                            width={40}
+                            height={40}
+                            alt={product.user.username}
+                        />
+                    ) : (
+                        <UserIcon />
+                    )}
                 </div>
-                <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
-                    <div className="size-10 rounded-full overflow-hidden">
-                        {product.user.avatar !== null ? (
-                            <Image
-                                src={product.user.avatar}
-                                width={40}
-                                height={40}
-                                alt={product.user.username}
-                            />
-                        ) : (
-                            <UserIcon />
-                        )}
-                    </div>
-                    <div>
-                        <h3>{product.user.username}</h3>
-                    </div>
+                <div>
+                    <h3>{product.user.username}</h3>
                 </div>
-                <div className="p-5">
-                    <h1 className="text-2xl font-semibold">{product.title}</h1>
-                    <p>{product.description}</p>
-                </div>
+            </div>
+            <div className="p-5">
+                <h1 className="text-2xl font-semibold">{product.title}</h1>
+                <p>{product.description}</p>
+            </div>
                 {isOwner ? (
                     <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
-                        <span className="font-semibold text-xl">
-                            ${formatToDollar(product.price)}
-                        </span>
-                        <form action={editProduct}>
-                            <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
-                                Edit product
-                            </button></form>
-                        <DeleteProductModal productId={product.id} />
+                <span className="font-semibold text-xl">
+                    ${formatToDollar(product.price)}
+                </span>
+                    <form action={editProduct}>
+                        <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                            Edit product
+                        </button></form>
+                    <DeleteProductModal productId={product.id} />
                     </div>
                 ) : <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
                     <span className="font-semibold text-xl flex items-center pl-8">

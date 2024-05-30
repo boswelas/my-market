@@ -2,9 +2,9 @@
 
 import db from "@/lib/database";
 import getSession from "@/lib/session";
-import { red } from "@mui/material/colors";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+
 
 export default async function deleteProduct(productId: number) {
     const session = await getSession();
@@ -33,5 +33,5 @@ export default async function deleteProduct(productId: number) {
     } else {
         return notFound();
     }
-
 }
+

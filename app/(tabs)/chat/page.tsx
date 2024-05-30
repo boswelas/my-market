@@ -18,6 +18,10 @@ async function getChats() {
             chatrooms: {
                 orderBy: {
                     updated_at: 'desc'
+                }, where: {
+                    messages: {
+                        some: {}
+                    }
                 },
                 include: {
                     users: {
