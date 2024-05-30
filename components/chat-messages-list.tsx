@@ -1,7 +1,7 @@
 "use client"
 
 import { InitialChatMessages } from "@/app/chats/[id]/page";
-import { GetChatTime } from "@/lib/utils";
+import { GetChatMessageTime } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpCircleIcon } from "@heroicons/react/24/solid";
@@ -106,7 +106,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                             <div>
                                 <div className="flex gap-1 items-center">
                                     <span className="text-xs">{message.user.username}</span>
-                                    <span className="text-xs">{GetChatTime(message.created_at)}</span>
+                                    <span className="text-xs">{GetChatMessageTime(message.created_at)}</span>
                                 </div>
                                 <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
                                     <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md max-w-96 max-h-[5rem] overflow-hidden`}>

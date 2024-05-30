@@ -38,6 +38,28 @@ export function GetPostTime(timestamp: Date): string {
 }
 
 export function GetChatTime(timestamp: Date): string {
+    const now = new Date();
+    const messageTime = new Date(timestamp);
+    const differenceInMilliseconds = now.getTime() - messageTime.getTime();
+    const oneHourInMilliseconds = 1000 * 60 * 60;
+    const oneDayInMilliseconds = oneHourInMilliseconds * 24;
+    const oneWeekInMilliseconds = oneDayInMilliseconds * 7;
+    if (differenceInMilliseconds < oneDayInMilliseconds) {
+        const time = new Date(timestamp);
+        return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else if (differenceInMilliseconds < oneWeekInMilliseconds) {
+        const diffInDays = Math.floor(differenceInMilliseconds / oneDayInMilliseconds);
+        return diffInDays === 1 ? '1 day ago' : `${diffInDays} days ago`;
+    } else {
+        return messageTime.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+    }
+}
+
+export function GetChatMessageTime(timestamp: Date): string {
     let hours = timestamp.getHours();
     const minutes = timestamp.getMinutes().toString().padStart(2, '0');
     const period = hours < 12 ? 'AM' : 'PM';
