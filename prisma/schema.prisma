@@ -47,6 +47,7 @@ model Product {
   updated_at  DateTime   @updatedAt
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
+  ChatRoom    ChatRoom[]
 }
 
 model Post {
@@ -90,6 +91,9 @@ model ChatRoom {
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   messages   Message[]
+  visible    Boolean   @default(true)
+  product    Product   @relation(fields: [productId], references: [id])
+  productId  Int       @default(1)
 }
 
 model Message {
