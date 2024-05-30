@@ -54,7 +54,9 @@ export default async function Chat() {
         return <div>No Chats to Display</div>
     } else {
         return (
-            <><div><h1 className="text-white text-4xl">Chats</h1></div>
+            <>
+                <div>
+                    <h1 className="text-white text-4xl">Chats</h1></div>
                 <div className="mt-5 p-5 flex flex-col">
                     {chats.flatMap(chat => chat.chatrooms).map(chatroom => (
                         <Link
@@ -77,6 +79,7 @@ export default async function Chat() {
                         </Link>
                     ))}
                 </div>
+                <div className=" mt-14" />
             </>
         )
     };

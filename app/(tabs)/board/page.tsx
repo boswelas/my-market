@@ -49,7 +49,7 @@ export default async function Board() {
                             <span>·</span>
                             <span>{post.views} views</span>
                         </div>
-                        <div className="flex gap-4 items-center *:flex *:gap-1 *:items-center">
+                        <div className="flex gap-4 items-center *:flex *:gap-1 *:items-center my-8">
                             <span>
                                 <HandThumbUpIcon className="size-4" />
                                 {post._count.likes}
