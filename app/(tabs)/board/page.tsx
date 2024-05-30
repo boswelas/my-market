@@ -39,25 +39,27 @@ export default async function Board() {
                 <Link
                     key={post.id}
                     href={`/posts/${post.id}`}
-                    className="pb-5 mb-5 border-b border-neutral-500 text-neutral-400 flex  flex-col gap-2 last:pb-0 last:border-b-0"
+                    className="pb-5  border-b border-neutral-500 text-neutral-400 flex  flex-col gap-2 last:pb-0 last:border-b-0"
                 >
-                    <h2 className="text-white text-lg font-semibold">{post.title}</h2>
-                    <p>{post.description}</p>
-                    <div className="flex items-center justify-between text-sm">
-                        <div className="flex gap-4 items-center">
-                            <span>{formatToTimeAgo(post.created_at.toString())}</span>
-                            <span>·</span>
-                            <span>{post.views} views</span>
-                        </div>
-                        <div className="flex gap-4 items-center *:flex *:gap-1 *:items-center my-8">
-                            <span>
-                                <HandThumbUpIcon className="size-4" />
-                                {post._count.likes}
-                            </span>
-                            <span>
-                                <ChatBubbleBottomCenterIcon className="size-4" />
-                                {post._count.comments}
-                            </span>
+                    <div className="my-3">
+                        <h2 className="text-white text-lg font-semibold mt-2">{post.title}</h2>
+                        <p>{post.description}</p>
+                        <div className="flex items-center justify-between text-sm mt-4" >
+                            <div className="flex gap-4 items-center ">
+                                <span>{formatToTimeAgo(post.created_at.toString())}</span>
+                                <span>·</span>
+                                <span>{post.views} views</span>
+                            </div>
+                            <div className="flex gap-4 items-center *:flex *:gap-1 *:items-center">
+                                <span>
+                                    <HandThumbUpIcon className="size-4" />
+                                    {post._count.likes}
+                                </span>
+                                <span>
+                                    <ChatBubbleBottomCenterIcon className="size-4" />
+                                    {post._count.comments}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </Link>
@@ -66,6 +68,8 @@ export default async function Board() {
             size-16 fixed bottom-24 right-8 text-white transition-colors hover:bg-orange-400">
                 <PlusIcon className="size-10" />
             </Link>
+            <div className=" mt-20" />
         </div>
+
     );
 }
