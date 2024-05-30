@@ -1,10 +1,10 @@
 "use client"
 
 import { InitialChatMessages } from "@/app/chats/[id]/page";
-import { formatToTimeAgo } from "@/lib/utils";
+import { GetChatTime } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpCircleIcon, UserIcon } from "@heroicons/react/24/solid";
+import { ArrowUpCircleIcon } from "@heroicons/react/24/solid";
 import { RealtimeChannel, createClient } from "@supabase/supabase-js";
 import { saveMessage } from "@/app/chats/actions";
 import CloseButton from "./close-button";
@@ -18,18 +18,6 @@ interface ChatMessageListProps {
     chatRoomId: string;
     username: string;
     avatar: string;
-}
-
-function isLessThanOneDay(timestamp: Date) {
-    const messageTime = new Date(timestamp).getTime();
-    const currentTime = new Date().getTime();
-    const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
-    return (currentTime - messageTime) < oneDayInMilliseconds;
-}
-
-function formatToTime(timestamp: string) {
-    const time = new Date(timestamp);
-    return time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 export default function ChatMessagesList({ initialMessages, userId, chatRoomId, username, avatar }: ChatMessageListProps) {
@@ -95,11 +83,19 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
 
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
+
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
                 <CloseButton />
-                {messages.map((message) => (
-                    <div key={message.id} className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`}>
-                        {message.userId === userId ? null : (
+                {messages.map((message, index) => (
+                    <div key={message.id}>
+                        {index > 0 && new Date(messages[index - 1].created_at).toDateString() !== new Date(message.created_at).toDateString() && (
+                            <div className="flex justify-center w-full my-8 relative">
+                                <div className="absolute top-0 left-0 right-0 text-center">
+                                    <span className="text-sm text-neutral-400">{new Date(message.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                </div>
+                            </div>
+                        )}
+                        <div className={`flex gap-2 items-start ${message.userId === userId ? "justify-end" : ""}`} style={{ marginBottom: '1rem' }}>
                             <Image
                                 src={message.user.avatar!}
                                 alt={message.user.username}
@@ -107,17 +103,22 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                                 height={50}
                                 className="size-8 rounded-full"
                             />
-                        )}
-                        <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
-                            <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md max-w-96`}>
-                                {message.payload}
-                            </span>
-                            <span className="text-xs">
-                                {isLessThanOneDay(message.created_at) ? formatToTime(message.created_at.toString()) : formatToTimeAgo(message.created_at.toString())}
-                            </span>
+                            <div>
+                                <div className="flex gap-1 items-center">
+                                    <span className="text-xs">{message.user.username}</span>
+                                    <span className="text-xs">{GetChatTime(message.created_at)}</span>
+                                </div>
+                                <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
+                                    <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md max-w-96 max-h-[5rem] overflow-hidden`}>
+                                        {message.payload}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
+
+
                 <div ref={messagesEndRef} />
             </div>
             <form className="flex items-center" onSubmit={onSubmit}>
@@ -134,6 +135,6 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                     <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
                 </button>
             </form>
-        </div>
+        </div >
     );
 }

@@ -36,3 +36,13 @@ export function GetPostTime(timestamp: Date): string {
         });
     }
 }
+
+export function GetChatTime(timestamp: Date): string {
+    let hours = timestamp.getHours();
+    const minutes = timestamp.getMinutes().toString().padStart(2, '0');
+    const period = hours < 12 ? 'AM' : 'PM';
+    hours = hours % 12 || 12;
+    const timeString = `${hours}:${minutes} ${period}`;
+    return timeString;
+}
+
