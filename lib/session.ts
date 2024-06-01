@@ -9,5 +9,9 @@ export default function getSession() {
     return getIronSession<SessionContent>(cookies(), {
         cookieName: "user-market",
         password: process.env.COOKIE_PASSWORD!,
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "none",
+        }
     });
 }

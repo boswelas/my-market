@@ -1,6 +1,6 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session"
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 
