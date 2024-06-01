@@ -1,7 +1,7 @@
 import UserProductCarousel from "@/components/user-product-carousel";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
-import Link from "next/link";
+import { revokeAccess } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
 
 async function getUser() {
@@ -24,6 +24,7 @@ export default async function Profile() {
     const logOut = async () => {
         "use server";
         const session = await getSession();
+        revokeAccess(session.access_token!);
         await session.destroy();
         redirect("/");
     }

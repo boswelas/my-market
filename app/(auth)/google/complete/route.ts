@@ -34,7 +34,6 @@ export async function GET(request: NextRequest) {
         });
     }
 
-
     const userProfileResponse = await fetch("https://www.googleapis.com/oauth2/v1/userinfo?alt=json", {
         headers: {
             Authorization: `Bearer ${access_token}`,
@@ -67,9 +66,10 @@ export async function GET(request: NextRequest) {
         });
     }
 
-    // Create or update session
+
     const session = await getSession();
     session.id = user.id;
+    session.access_token = access_token;
     console.log(session.id);
     await session.save();
     console.log("session saved")
