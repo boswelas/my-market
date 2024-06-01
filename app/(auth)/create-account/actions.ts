@@ -3,9 +3,6 @@ import bycrypt from "bcrypt";
 import { PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR } from "@/lib/constants";
 import db from "@/lib/database";
 import { z } from "zod";
-import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
-import { IronSession } from "iron-session";
 import { redirect } from "next/navigation";
 import getSession from "@/lib/session";
 
@@ -79,7 +76,7 @@ export async function createAccount(prevState: any, formData: FormData) {
         password: formData.get("password"),
         confirm_password: formData.get("confirm_password"),
     };
-    const result = await formSchema.safeParseAsync(data);
+    const result = await formSchema.spa(data);
     if (!result.success) {
         console.log(result.error.flatten());
         return result.error.flatten();
