@@ -69,7 +69,6 @@ export async function GET(request: NextRequest) {
 
     const session = await getSession();
     session.id = user.id;
-    session.access_token = access_token;
     console.log(session.id);
     await session.save();
     console.log("session saved")
