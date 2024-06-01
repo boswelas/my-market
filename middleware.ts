@@ -12,6 +12,8 @@ const publicOnlyUrls: Routes = {
     "/create-account": true,
     "/github/start": true,
     "/github/complete": true,
+    "/google/start": true,
+    "/google/complete": true,
 };
 
 export async function middleware(request: NextRequest) {
