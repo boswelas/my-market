@@ -1,10 +1,11 @@
+
 import ChatMessagesList from "@/components/chat-messages-list";
 import CloseButton from "@/components/close-button";
-import TabBar from "@/components/tab-bar";
 import db from "@/lib/database"
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
+import markAsSold from "./actions";
 
 async function getRoom(id: string) {
     const room = await db.chatRoom.findUnique({
@@ -77,12 +78,23 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     if (!room) {
         return notFound();
     }
+    const buyer = room.users.find(user => user.id !== 3)!.id;
     const initialMessages = await getMessages(params.id);
     const session = await getSession();
     const user = await getUserProfile();
     if (!user) {
         return notFound();
     }
+
+    async function markSold() {
+        "use server"
+
+        console.log("buyer is ", buyer);
+        if (buyer) {
+            await markAsSold(room!.productId, buyer);
+        }
+    }
+
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
             <div>
@@ -91,10 +103,11 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                 </div>
                 <span>Rating Bar</span>
                 {/* <div>{room.product.userId == 3 ? ( */}
-                <div>{room.product.userId == session.id! ? (
+                    // <div>{room.product.userId == session.id! ? (
                     <div>
-                        <span>Mark as Sold</span>
-                        <span>Rate Buyer</span>
+                        <form action={markSold}>
+                            <button type="submit">Mark Sold</button>
+                        </form>
                     </div>) : (
                     <div></div>)}
                 </div>
