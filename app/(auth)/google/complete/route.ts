@@ -1,7 +1,7 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
     const code = request.nextUrl.searchParams.get("code");
@@ -72,5 +72,11 @@ export async function GET(request: NextRequest) {
     console.log(session.id);
     await session.save();
     console.log("session saved")
-    return redirect("/profile");
+    const response = NextResponse.redirect("/profile");
+    response.headers.set("Cache-Control", "no-store");
+
+    return response;
+
+
+
 }
