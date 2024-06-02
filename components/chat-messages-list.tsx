@@ -83,9 +83,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
 
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
-
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
-                <CloseButton />
                 {messages.map((message, index) => (
                     <div key={message.id}>
                         {index > 0 && new Date(messages[index - 1].created_at).toDateString() !== new Date(message.created_at).toDateString() && (

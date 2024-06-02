@@ -25,6 +25,7 @@ model User {
   likes      Like[]
   chatrooms  ChatRoom[]
   messages   Message[]
+  purchases  Purchase[]
 }
 
 model SMSToken {
@@ -43,11 +44,13 @@ model Product {
   description String
   photo       String
   visible     Boolean    @default(true)
+  sold        Boolean    @default(false)
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
   ChatRoom    ChatRoom[]
+  Purchase    Purchase[]
 }
 
 model Post {
@@ -93,7 +96,7 @@ model ChatRoom {
   messages   Message[]
   visible    Boolean   @default(true)
   product    Product   @relation(fields: [productId], references: [id])
-  productId  Int       
+  productId  Int
 }
 
 model Message {
@@ -107,4 +110,12 @@ model Message {
   user       User     @relation(fields: [userId], references: [id])
   chatRoomId String
   userId     Int
+}
+
+model Purchase {
+  id        Int     @id @default(autoincrement())
+  buyer     User    @relation(fields: [buyerId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  buyerId   Int
+  productId Int
 }
