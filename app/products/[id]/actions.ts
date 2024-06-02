@@ -59,15 +59,19 @@ export async function createChatRoom(userId: number, owner: number, productId: n
             data: {
                 product: {
                     connect: {
-                        id: productId,
+                        id: productId!,
                     },
                 },
-                users: {
-                    connect: [{ id: userId }, { id: owner }],
-                },
                 updated_at: new Date(),
-            },
-            select: { id: true },
+                users: {
+                    connect: [{
+                        id: userId
+                    }, {
+
+                        id: owner
+                    },],
+                }
+            }
         });
 
         return room.id;
