@@ -72,7 +72,8 @@ export async function GET(request: NextRequest) {
     console.log(session.id);
     await session.save();
     console.log("session saved")
-    const response = NextResponse.redirect("/profile");
+    const redirectUrl = 'https://my-market-henna.vercel.app/profile';
+    const response = NextResponse.redirect(redirectUrl);
     response.headers.set("Cache-Control", "no-store");
 
     return response;
