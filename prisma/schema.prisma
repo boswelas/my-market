@@ -93,7 +93,7 @@ model ChatRoom {
   messages   Message[]
   visible    Boolean   @default(true)
   product    Product   @relation(fields: [productId], references: [id])
-  productId  Int       @default(1)
+  productId  Int       
 }
 
 model Message {
