@@ -61,7 +61,9 @@ export default async function ProductDetail({
         "use server";
         const session = await getSession();
         let room = await checkExistingChat(session.id!, product.userId, product.id);
-        if(!room){
+        console.log(room);
+        if (!room) {
+            console.log("creating room")
             createChatRoom(session.id!, product.userId, product.id)
         }
         redirect(`../chats/${room}`)
