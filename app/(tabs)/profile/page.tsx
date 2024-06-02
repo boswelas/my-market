@@ -1,4 +1,5 @@
-import UserProductCarousel from "@/components/user-product-carousel";
+import UserProducts from "@/components/user-products";
+import UserPurchases from "@/components/user-purchases";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
@@ -36,11 +37,11 @@ export default async function Profile() {
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
                 <h1 className="text-center font-semibold text-xl my-2">My Products</h1>
-                <UserProductCarousel />
+                <UserProducts />
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
                 <h1 className="text-center font-semibold text-xl my-2">My Purchases</h1>
-
+                <UserPurchases />
             </div>
         </div>
     )

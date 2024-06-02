@@ -22,7 +22,7 @@ async function getProducts(userId: number) {
     return products;
 }
 
-export default async function UserProductCarousel() {
+export default async function UserProducts() {
     const session = await getSession();
     const user = await session.id;
     if (user) {
