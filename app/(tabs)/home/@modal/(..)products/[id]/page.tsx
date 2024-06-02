@@ -5,6 +5,7 @@ import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { formatToDollar } from "@/lib/utils";
 import DeleteProductModal from "@/components/delete-product";
+import { checkExistingChat, createChatRoom } from "@/app/products/[id]/actions";
 
 
 
@@ -53,25 +54,19 @@ export default async function Modal({ params }: { params: { id: string } }) {
         return notFound();
     }
     const isOwner = await getIsOwner(product.userId);
-    const createChatRoom = async () => {
+    const getChat = async () => {
         "use server";
         const session = await getSession();
-        const room = await db.chatRoom.create({
-            data: {
-                users: {
-                    connect: [{
-                        id: product.userId
-                    }, {
-
-                        id: session.id
-                    },],
-                },
-            },
-            select: {
-                id: true,
-            },
-        });
-        redirect(`../chats/${room.id}`)
+        console.log("product id: ", product.id);
+        console.log("userId: ", session.id);
+        console.log("owner: ", product.userId)
+        let room = await checkExistingChat(session.id!, product.userId, product.id);
+        console.log(room);
+        if (!room) {
+            console.log("creating room");
+            room = await createChatRoom(session.id!, product.userId, product.id);
+        }
+        redirect(`../chats/${room}`)
     }
 
     const editProduct = async () => {
@@ -119,7 +114,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
             ) : <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
                 <span className="font-semibold text-xl flex items-center pl-8">
                     ${formatToDollar(product.price)}
-                </span> <form action={createChatRoom} className="flex items-center pl-64">
+                </span> <form action={getChat} className="flex items-center pl-64">
                     <button
                         className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
                         Chat
