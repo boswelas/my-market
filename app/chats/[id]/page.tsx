@@ -103,7 +103,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                 </div>
                 <span>Rating Bar</span>
                 {/* <div>{room.product.userId == 3 ? ( */}
-                    // <div>{room.product.userId == session.id! ? (
+                <div>{room.product.userId == session.id! ? (
                     <div>
                         <form action={markSold}>
                             <button type="submit">Mark Sold</button>
