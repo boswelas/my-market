@@ -64,7 +64,7 @@ export default async function ProductDetail({
         console.log(room);
         if (!room) {
             console.log("creating room")
-            createChatRoom(session.id!, product.userId!, product.id!)
+            createChatRoom(session.id!, product.userId, product.id)
         }
         redirect(`../chats/${room}`)
     }

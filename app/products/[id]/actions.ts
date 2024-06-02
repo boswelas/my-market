@@ -65,6 +65,7 @@ export async function createChatRoom(userId: number, owner: number, productId: n
                 users: {
                     connect: [{ id: userId }, { id: owner }],
                 },
+                updated_at: new Date(),
             },
             select: { id: true },
         });
