@@ -65,10 +65,10 @@ export async function createChatRoom(userId: number, owner: number, productId: n
                 updated_at: new Date(),
                 users: {
                     connect: [{
-                        id: userId
+                        id: userId!
                     }, {
 
-                        id: owner
+                        id: owner!
                     },],
                 }
             }
