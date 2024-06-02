@@ -60,7 +60,7 @@ export async function createChatRoom(userId: number, owner: number, productId: n
                 product: {
                     connect: {
                         id: productId,
-                    }
+                    },
                 },
                 users: {
                     connect: [{ id: userId }, { id: owner }],
