@@ -9,23 +9,25 @@ datasource db {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  username   String     @unique
-  email      String?    @unique
-  password   String?
-  phone      String?    @unique
-  github_id  String?    @unique
-  avatar     String
-  created_at DateTime   @default(now())
-  updated_at DateTime   @updatedAt
-  SMSToken   SMSToken[]
-  products   Product[]
-  posts      Post[]
-  comments   Comment[]
-  likes      Like[]
-  chatrooms  ChatRoom[]
-  messages   Message[]
-  purchases  Purchase[]
+  id              Int        @id @default(autoincrement())
+  username        String     @unique
+  email           String?    @unique
+  password        String?
+  phone           String?    @unique
+  github_id       String?    @unique
+  avatar          String
+  created_at      DateTime   @default(now())
+  updated_at      DateTime   @updatedAt
+  SMSToken        SMSToken[]
+  products        Product[]
+  posts           Post[]
+  comments        Comment[]
+  likes           Like[]
+  chatrooms       ChatRoom[]
+  messages        Message[]
+  purchases       Purchase[]
+  givenRatings    Rating[]   @relation("GivenRatings")
+  receivedRatings Rating[]   @relation("ReceivedRatings")
 }
 
 model SMSToken {
@@ -49,8 +51,9 @@ model Product {
   updated_at  DateTime   @updatedAt
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
-  ChatRoom    ChatRoom[]
-  Purchase    Purchase[]
+  chatrooms   ChatRoom[]
+  purchases   Purchase[]
+  ratings     Rating[]
 }
 
 model Post {
@@ -118,4 +121,16 @@ model Purchase {
   product   Product @relation(fields: [productId], references: [id])
   buyerId   Int
   productId Int
+}
+
+model Rating {
+  raterId   Int
+  rateeId   Int
+  rating    Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  rater     User    @relation("GivenRatings", fields: [raterId], references: [id])
+  ratee     User    @relation("ReceivedRatings", fields: [rateeId], references: [id])
+
+  @@id(name: "id", [raterId, rateeId, productId])
 }

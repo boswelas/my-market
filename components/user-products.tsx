@@ -46,7 +46,5 @@ export default async function UserProducts() {
                 </div>
             </div>
         );
-
     }
-
 }
