@@ -40,11 +40,15 @@ export async function checkExistingChat(userId: number, owner: number, productId
     try {
         const isChat = await db.chatRoom.findFirst({
             where: {
-                AND: [
-                    { users: { some: { id: userId } } },
-                    { users: { some: { id: owner } } },
-                    { productId: productId }
-                ],
+                productId: productId,
+                users: {
+                    every: {
+                        OR: [
+                            { id: userId },
+                            { id: owner },
+                        ]
+                    }
+                }
             },
             select: { id: true },
         });

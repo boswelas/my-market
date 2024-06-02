@@ -62,6 +62,9 @@ export default async function ProductDetail({
     const getChat = async () => {
         "use server";
         const session = await getSession();
+        console.log("product id: ", product.id);
+        console.log("userId: ", session.id);
+        console.log("owner: ", product.userId)
         let room = await checkExistingChat(session.id!, product.userId, product.id);
         console.log(room);
         if (!room) {
