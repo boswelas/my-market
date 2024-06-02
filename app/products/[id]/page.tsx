@@ -8,6 +8,9 @@ import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { checkExistingChat, createChatRoom } from "./actions";
 
+
+
+
 async function getIsOwner(userId: number) {
     const session = await getSession();
     if (session.id) {
@@ -60,11 +63,11 @@ export default async function ProductDetail({
     const getChat = async () => {
         "use server";
         const session = await getSession();
-        let room = await checkExistingChat(session.id!, product.userId!, product.id!);
+        let room = await checkExistingChat(session.id!, product.userId, product.id);
         console.log(room);
         if (!room) {
-            console.log("creating room")
-            createChatRoom(session.id!, product.userId, product.id)
+            console.log("creating room");
+            room = await createChatRoom(session.id!, product.userId, product.id);
         }
         redirect(`../chats/${room}`)
     }

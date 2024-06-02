@@ -34,6 +34,9 @@ export default async function deleteProduct(productId: number) {
         return notFound();
     }
 }
+
+
+
 export async function checkExistingChat(userId: number, owner: number, productId: number) {
     try {
         const isChat = await db.chatRoom.findFirst({
