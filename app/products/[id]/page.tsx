@@ -20,7 +20,7 @@ async function getIsOwner(userId: number) {
 }
 
 async function getProduct(id: number) {
-    const product = await db.product.findUnique({
+    return await db.product.findUnique({
         where: {
             id,
         },
@@ -33,7 +33,6 @@ async function getProduct(id: number) {
             },
         },
     });
-    return product;
 }
 
 export async function generateMetadata({ params

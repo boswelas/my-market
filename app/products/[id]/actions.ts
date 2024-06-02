@@ -36,7 +36,6 @@ export default async function deleteProduct(productId: number) {
 }
 
 
-
 export async function checkExistingChat(userId: number, owner: number, productId: number) {
     try {
         const isChat = await db.chatRoom.findFirst({
@@ -62,16 +61,15 @@ export async function createChatRoom(userId: number, owner: number, productId: n
             data: {
                 product: {
                     connect: {
-                        id: productId!,
+                        id: productId,
                     },
                 },
-                updated_at: new Date(),
                 users: {
                     connect: [{
-                        id: userId!
+                        id: userId
                     }, {
 
-                        id: owner!
+                        id: owner
                     },],
                 }
             }
