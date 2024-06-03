@@ -24,14 +24,23 @@ export default function UserRating({ rater, ratee, productId, existingRating }: 
             await giveRating(rater, ratee, productId, newRating);
         }
     }
-    return (
-        <div>
-            <Rating
-                name="simple-controlled"
-                size="small"
-                value={rating}
-                onChange={(event, newValue) => updateRating(newValue)}
-            />
-        </div>
-    )
+    if (rating !== 0) {
+        return (
+            <div>
+                <span>Current Rating:</span>
+                <Rating
+                    name="simple-controlled"
+                    size="small"
+                    value={rating}
+                    onChange={(event, newValue) => updateRating(newValue)}
+                />
+            </div>
+        )
+    }
+    else {
+        return (
+            <div />
+        )
+    }
+
 }

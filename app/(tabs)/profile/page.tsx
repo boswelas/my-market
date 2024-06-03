@@ -51,19 +51,15 @@ export default async function Profile() {
                 </form>
             </div>
             <div>
-                <span>Current Rating:</span>
                 <Rating size="small" name="read-only" value={rating} precision={0.5} readOnly />
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
-                <h1 className="text-center font-semibold text-xl my-2">My Purchases</h1>
                 <UserPurchases />
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
-                <h1 className="text-center font-semibold text-xl my-2">My Products</h1>
                 <UserProducts />
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
-                <h1 className="text-center font-semibold text-xl my-2">Past Products</h1>
                 <PastProducts />
             </div>
         </div>
