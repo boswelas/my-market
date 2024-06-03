@@ -7,13 +7,13 @@ async function getProducts(userId: number) {
     const products = await db.product.findMany({
         where: {
             userId,
+            sold: false,
         },
         select: {
             id: true,
             title: true,
             photo: true,
             created_at: true,
-            sold: false,
         },
         take: 3,
         orderBy: {

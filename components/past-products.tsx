@@ -7,13 +7,13 @@ async function getPastProducts(userId: number) {
     const products = await db.product.findMany({
         where: {
             userId,
+            sold: true,
         },
         select: {
             id: true,
             title: true,
             photo: true,
             created_at: true,
-            sold: true,
         },
         take: 3,
         orderBy: {
