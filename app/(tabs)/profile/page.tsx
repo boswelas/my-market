@@ -5,6 +5,7 @@ import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import { getRatings } from "./actions";
 import { Rating } from "@mui/material";
+import PastProducts from "@/components/past-products";
 
 async function getUser() {
     const session = await getSession();
@@ -62,7 +63,7 @@ export default async function Profile() {
             </div>
             <div className="h-56 w-full bg-neutral-800 rounded-xl">
                 <h1 className="text-center font-semibold text-xl my-2">Past Products</h1>
-                <UserProducts />
+                <PastProducts />
             </div>
 
         </div>

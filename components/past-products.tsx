@@ -3,7 +3,7 @@ import getSession from "@/lib/session";
 import Link from "next/link";
 import Image from "next/image";
 
-async function getProducts(userId: number) {
+async function getPastProducts(userId: number) {
     const products = await db.product.findMany({
         where: {
             userId,
@@ -23,11 +23,11 @@ async function getProducts(userId: number) {
     return products;
 }
 
-export default async function UserProducts() {
+export default async function PastProducts() {
     const session = await getSession();
     const user = await session.id;
     if (user) {
-        const products = await getProducts(user);
+        const products = await getPastProducts(user);
         return (
             <div className="relative">
                 <div className="grid grid-cols-3">
