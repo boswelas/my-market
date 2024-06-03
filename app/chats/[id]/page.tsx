@@ -1,11 +1,11 @@
-
 import ChatMessagesList from "@/components/chat-messages-list";
 import CloseButton from "@/components/close-button";
 import db from "@/lib/database"
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
-import markAsSold from "./actions";
+import markAsSold, { existingRating } from "./actions";
+import UserRating from "@/components/user-rating";
 
 async function getRoom(id: string) {
     const room = await db.chatRoom.findUnique({
@@ -78,9 +78,18 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     if (!room) {
         return notFound();
     }
-    const buyer = room.users.find(user => user.id !== 3)!.id;
+    const buyer = room.users.find(user => user.id !== room.product.userId)!.id;
+    const seller = room.product.userId;
     const initialMessages = await getMessages(params.id);
     const session = await getSession();
+    const rater = session.id!;
+    // const rater = 3;
+    let ratee: number;
+    if (rater === seller) {
+        ratee = buyer;
+    } else {
+        ratee = seller;
+    }
     const user = await getUserProfile();
     if (!user) {
         return notFound();
@@ -95,6 +104,14 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
         }
     }
 
+    const getExistingRating = async (rater: number, ratee: number, productId: number) => {
+        const oldRating = await existingRating(rater, ratee, productId);
+        return oldRating ? oldRating.rating : 0;
+    };
+
+    const oldRating = await getExistingRating(rater, ratee, room.product.id);
+
+
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
             <div>
@@ -105,10 +122,14 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                 {/* <div>{room.product.userId == 3 ? ( */}
                 <div>{room.product.userId == session.id! ? (
                     <div>
-                        <form action={markSold}>
-                            <button type="submit">Mark Sold</button>
-                        </form>
-                    </div>) : (
+                        <div>
+                            <form action={markSold}>
+                                <button type="submit">Mark Sold</button>
+                            </form>
+                        </div>
+                        <UserRating rater={rater} ratee={ratee} productId={room.productId} existingRating={oldRating} />
+                    </div>
+                ) : (
                     <div></div>)}
                 </div>
             </div>
@@ -121,6 +142,6 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                 initialMessages={initialMessages} />
         </div>
     )
-
-
 }
+
+
