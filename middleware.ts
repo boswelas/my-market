@@ -15,6 +15,7 @@ const publicOnlyUrls: Routes = {
     "/google/start": true,
     "/google/complete": true,
     // "/chats/clwxsycb50001g1k1iaiqklpx": true,
+    // "/profile": true,
 };
 
 export async function middleware(request: NextRequest) {

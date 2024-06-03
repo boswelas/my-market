@@ -13,7 +13,7 @@ async function getProducts(userId: number) {
             title: true,
             photo: true,
             created_at: true,
-            sold: false,
+            sold: true,
         },
         take: 3,
         orderBy: {
