@@ -32,7 +32,7 @@ export default async function UserPurchases() {
         const purchases = await getPurchases(user);
         if (purchases.length !== 0) {
             return (
-                <div className="h-56 w-full bg-neutral-800 rounded-xl">
+                <div>
                     <h1 className="text-center font-semibold text-xl my-1">My Purchases</h1>
                     <div className="relative">
                         <div className="grid grid-cols-4">

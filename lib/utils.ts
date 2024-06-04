@@ -40,7 +40,8 @@ export function GetPostTime(timestamp: Date): string {
 export function GetChatTime(timestamp: Date): string {
     const now = new Date();
     const messageTime = new Date(timestamp);
-    const differenceInMilliseconds = now.getTime() - messageTime.getTime();
+    const messageTimeUTC = new Date(messageTime.getTime() + messageTime.getTimezoneOffset() * 60000);
+    const differenceInMilliseconds = now.getTime() - messageTimeUTC.getTime();
     const oneHourInMilliseconds = 1000 * 60 * 60;
     const oneDayInMilliseconds = oneHourInMilliseconds * 24;
     const oneWeekInMilliseconds = oneDayInMilliseconds * 7;
@@ -50,7 +51,7 @@ export function GetChatTime(timestamp: Date): string {
         const diffInDays = Math.floor(differenceInMilliseconds / oneDayInMilliseconds);
         return diffInDays === 1 ? '1 day ago' : `${diffInDays} days ago`;
     } else {
-        return messageTime.toLocaleDateString('en-US', {
+        return messageTimeUTC.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
