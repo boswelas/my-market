@@ -114,6 +114,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     const getExistingRating = async (rater: number, ratee: number, productId: number) => {
         console.log("getting rating!")
         const oldRating = await existingRating(rater, ratee, productId);
+        console.log(oldRating);
         return oldRating ? oldRating.rating : 0;
     };
 
@@ -126,7 +127,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                     <CloseButton />
                 </div>
                 {/* <div>{room.product.userId == 3 ? ( */}
-                    <div>{room.product.userId == session.id! ? (
+                <div>{room.product.userId == session.id! ? (
                     <div>
                         {room.product.sold === false ? (
                             <div>
