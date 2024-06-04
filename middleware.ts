@@ -14,7 +14,8 @@ const publicOnlyUrls: Routes = {
     "/github/complete": true,
     "/google/start": true,
     "/google/complete": true,
-    // "/chats/clwxsycb50001g1k1iaiqklpx": true,
+    // "/chat": true,
+    // "/chats/clwzngy9j0000u5cqwlup2m77": true,
     // "/profile": true,
 };
 

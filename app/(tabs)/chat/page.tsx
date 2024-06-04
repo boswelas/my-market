@@ -10,6 +10,7 @@ export const metadata = {
 async function getChats() {
     const session = await getSession();
     const user = session.id;
+    // const user = 3;
     const chats = await db.user.findMany({
         where: {
             id: user,
