@@ -38,8 +38,7 @@ export function GetPostTime(timestamp: Date): string {
 }
 
 export function GetChatTime(timestamp: Date): string {
-    const localNow = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
-    const now = new Date(localNow);
+    const now = new Date();
     const messageTime = new Date(timestamp);
     const differenceInMilliseconds = now.getTime() - messageTime.getTime();
     const oneHourInMilliseconds = 1000 * 60 * 60;
