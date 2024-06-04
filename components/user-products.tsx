@@ -15,7 +15,7 @@ async function getProducts(userId: number) {
             photo: true,
             created_at: true,
         },
-        take: 3,
+        take: 4,
         orderBy: {
             created_at: "desc",
         }
@@ -26,18 +26,18 @@ async function getProducts(userId: number) {
 export default async function UserProducts() {
     const session = await getSession();
     const user = await session.id;
-    // const user = 8;
+    // const user = 3;
     if (user) {
         const products = await getProducts(user);
         if (products.length !== 0) {
             return (
                 <div>
-                    <h1 className="text-center font-semibold text-xl my-2">My Products</h1>
+                    <h1 className="text-center font-semibold text-xl my-1">My Products</h1>
                     <div className="relative">
-                        <div className="grid grid-cols-3">
+                        <div className="grid grid-cols-4">
                             {products.map((product) => (
                                 <Link key={product.id} href={`/products/${product.id}`} className="flex flex-col items-center mx-auto w-40 ">
-                                    <div className="relative w-full h-28 rounded-md overflow-hidden">
+                                    <div className="relative w-28 h-28 rounded-md overflow-hidden">
                                         <Image fill src={product.photo} alt={product.title} className="object-cover" />
                                     </div>
                                     <div className="flex flex-col items-center mt-2 text-center">
@@ -46,7 +46,7 @@ export default async function UserProducts() {
                                 </Link>
                             ))}
                         </div>
-                        <div className="flex justify-end mt-2 mr-2">
+                        <div className="flex justify-end mr-4">
                             <Link href="/user-products" className="text-blue-500 text-sm">View All</Link>
                         </div>
                     </div>
