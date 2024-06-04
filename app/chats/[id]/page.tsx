@@ -4,7 +4,7 @@ import db from "@/lib/database"
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
-import markAsSold, { existingRating } from "./actions";
+import { existingRating, markAsSold, unmarkAsSold } from "./actions";
 import UserRating from "@/components/user-rating";
 
 async function getRoom(id: string) {
@@ -20,6 +20,7 @@ async function getRoom(id: string) {
                 select: {
                     id: true,
                     userId: true,
+                    sold: true,
                 },
             }
         }
@@ -71,6 +72,7 @@ async function getUserProfile() {
     return user;
 }
 
+
 export type InitialChatMessages = Prisma.PromiseReturnType<typeof getMessages>;
 
 export default async function ChatRoom({ params }: { params: { id: string } }) {
@@ -97,20 +99,25 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
 
     async function markSold() {
         "use server"
-
-        console.log("buyer is ", buyer);
         if (buyer) {
-            await markAsSold(room!.productId, buyer);
+            await markAsSold(room!.productId, buyer, room!.id);
+        }
+    }
+
+    async function unmarkSold() {
+        "use server"
+        if (buyer) {
+            await unmarkAsSold(room!.productId, buyer, room!.id);
         }
     }
 
     const getExistingRating = async (rater: number, ratee: number, productId: number) => {
+        console.log("getting rating!")
         const oldRating = await existingRating(rater, ratee, productId);
         return oldRating ? oldRating.rating : 0;
     };
 
     const oldRating = await getExistingRating(rater, ratee, room.product.id);
-
 
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
@@ -118,21 +125,45 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                 <div>
                     <CloseButton />
                 </div>
-                <span>Rating Bar</span>
                 {/* <div>{room.product.userId == 3 ? ( */}
-                <div>{room.product.userId == session.id! ? (
+                    <div>{room.product.userId == session.id! ? (
                     <div>
-                        <div>
-                            <form action={markSold}>
-                                <button type="submit">Mark Sold</button>
-                            </form>
-                        </div>
-                        <UserRating rater={rater} ratee={ratee} productId={room.productId} existingRating={oldRating} />
+                        {room.product.sold === false ? (
+                            <div>
+                                <form action={markSold}>
+                                    <button type="submit">Mark As Sold</button>
+                                </form>
+                            </div>
+                        ) : (
+                            <div>
+                                <div>
+                                    <form action={unmarkSold}>
+                                        <button type="submit">Undo Sale</button>
+                                    </form>
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="mr-2">Rate Buyer:</span>
+                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} />
+                                </div>
+                            </div>
+
+                        )}
+
                     </div>
                 ) : (
-                    <div></div>)}
+                    <div>
+                        {
+                            room.product.sold === true ? (
+                                <div className="flex items-center">
+                                    <span className="mr-2">Rate Seller:</span>
+                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} />
+                                </div>
+                            ) : (
+                                <div />)
+                        }</div>)}
                 </div>
             </div>
+
             <ChatMessagesList
                 chatRoomId={params.id}
                 // userId={3}

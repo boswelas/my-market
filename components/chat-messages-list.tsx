@@ -1,5 +1,4 @@
 "use client"
-
 import { InitialChatMessages } from "@/app/chats/[id]/page";
 import { GetChatMessageTime } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -83,12 +82,23 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     return (
         <div className="p-5 flex flex-col h-screen max-w-7xl">
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
+                {messages.length > 0 && (
+                    <div className="flex justify-center w-full my-8 relative">
+                        <div className="absolute top-0 left-0 right-0 text-center">
+                            <span className="text-sm text-neutral-400">
+                                {new Date(messages[0].created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            </span>
+                        </div>
+                    </div>
+                )}
                 {messages.map((message, index) => (
                     <div key={message.id}>
                         {index > 0 && new Date(messages[index - 1].created_at).toDateString() !== new Date(message.created_at).toDateString() && (
                             <div className="flex justify-center w-full my-8 relative">
                                 <div className="absolute top-0 left-0 right-0 text-center">
-                                    <span className="text-sm text-neutral-400">{new Date(message.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                    <span className="text-sm text-neutral-400">
+                                        {new Date(message.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                    </span>
                                 </div>
                             </div>
                         )}
@@ -114,8 +124,6 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                         </div>
                     </div>
                 ))}
-
-
                 <div ref={messagesEndRef} />
             </div>
             <form className="flex items-center" onSubmit={onSubmit}>
@@ -132,6 +140,6 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                     <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
                 </button>
             </form>
-        </div >
+        </div>
     );
 }

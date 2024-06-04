@@ -1,7 +1,8 @@
 "use server"
 import db from "@/lib/database";
+import { revalidatePath } from "next/cache";
 
-export default async function markAsSold(productId: number, buyerId: number) {
+export async function markAsSold(productId: number, buyerId: number, roomId: string) {
     try {
         const updateSold = await db.product.update({
             where: {
@@ -27,10 +28,11 @@ export default async function markAsSold(productId: number, buyerId: number) {
                     },
                 }
             });
+            revalidatePath(`/chats/${roomId}`)
         }
 
     } catch (error) {
-        console.error('Error checking existing chat:', error);
+        console.error('Error marking item as sold:', error);
         throw error;
     }
 }
@@ -92,6 +94,45 @@ export async function giveRating(raterId: number, rateeId: number, productId: nu
     }
     catch (error) {
         console.error('Error giving rating:', error);
+        throw error;
+    }
+}
+
+export async function unmarkAsSold(productId: number, buyerId: number, roomId: string) {
+    try {
+        const updateSold = await db.product.update({
+            where: {
+                id: productId
+            },
+            data: {
+                sold: false,
+                visible: true,
+            }
+        });
+        if (updateSold) {
+            const updatePurchase = await db.purchase.deleteMany({
+                where: {
+                    buyerId: buyerId,
+                    productId: productId,
+                },
+            });
+            if (updatePurchase) {
+                const removeRating1 = await db.rating.deleteMany({
+                    where: {
+                        raterId: buyerId,
+                        productId: productId,
+                    },
+                });
+                const removeRating2 = await db.rating.deleteMany({
+                    where: {
+                        rateeId: buyerId,
+                        productId: productId,
+                    },
+                });
+            }
+        } revalidatePath(`/chats/${roomId}`)
+    } catch (error) {
+        console.error('Error unmarking item as sold:', error);
         throw error;
     }
 }

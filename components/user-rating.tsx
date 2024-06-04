@@ -12,7 +12,7 @@ interface ratingProps {
 }
 
 export default function UserRating({ rater, ratee, productId, existingRating }: ratingProps) {
-
+    console.log("in user rating");
 
     const [rating, setRating] = useState(existingRating);
 
@@ -27,7 +27,6 @@ export default function UserRating({ rater, ratee, productId, existingRating }: 
     if (rating !== 0) {
         return (
             <div>
-                <span>Current Rating:</span>
                 <Rating
                     name="simple-controlled"
                     size="small"
@@ -39,7 +38,14 @@ export default function UserRating({ rater, ratee, productId, existingRating }: 
     }
     else {
         return (
-            <div />
+            <div>
+                <Rating
+                    name="simple-controlled"
+                    size="small"
+                    value={0}
+                    onChange={(event, newValue) => updateRating(newValue)}
+                />
+            </div>
         )
     }
 
