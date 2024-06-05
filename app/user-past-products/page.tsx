@@ -8,7 +8,7 @@ async function getProducts(userId: number) {
     const products = await db.product.findMany({
         where: {
             userId,
-            sold: false,
+            sold: true,
         },
         select: {
             title: true,
@@ -32,7 +32,7 @@ export default async function UserProducts() {
         return (
             <div>
                 <CloseButton />
-                <h1 className="text-2xl font-semibold">My Products</h1>
+                <h1 className="text-2xl font-semibold">Past Products</h1>
                 <div className="p-5 flex flex-col gap-5">
                     {products.map((product) => (
                         <ListProduct key={product.id} {...product} />

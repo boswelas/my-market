@@ -48,7 +48,7 @@ export default async function UserPurchases() {
                             ))}
                         </div>
                         <div className="flex justify-end mr-4">
-                            <Link href="/user-products" className="text-blue-500 text-sm">View All</Link>
+                            <Link href="/user-purchases" className="text-blue-500 text-sm">View All</Link>
                         </div>
                     </div>
                 </div>

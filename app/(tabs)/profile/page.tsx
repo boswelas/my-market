@@ -24,8 +24,6 @@ async function getUser() {
     notFound();
 }
 
-
-
 export default async function Profile() {
     const user = await getUser();
     const logOut = async () => {
