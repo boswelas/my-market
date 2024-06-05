@@ -59,7 +59,7 @@ export async function existingRating(raterId: number, rateeId: number, productId
     }
 }
 
-export async function giveRating(raterId: number, rateeId: number, productId: number, rating: number) {
+export async function giveRating(raterId: number, rateeId: number, productId: number, rating: number, chatPath: string) {
     try {
         const giveRating = await db.rating.upsert({
             where: {
@@ -90,7 +90,8 @@ export async function giveRating(raterId: number, rateeId: number, productId: nu
                 },
                 rating: rating,
             }
-        });
+        }); revalidatePath(`/chats/${chatPath}`);
+
     }
     catch (error) {
         console.error('Error giving rating:', error);

@@ -127,7 +127,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                     <CloseButton />
                 </div>
                 {/* <div>{room.product.userId == 3 ? ( */}
-                <div>{room.product.userId == session.id! ? (
+                    <div>{room.product.userId == session.id! ? (
                     <div>
                         {room.product.sold === false ? (
                             <div>
@@ -144,7 +144,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                                 </div>
                                 <div className="flex items-center">
                                     <span className="mr-2">Rate Buyer:</span>
-                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} />
+                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
                                 </div>
                             </div>
 
@@ -157,7 +157,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                             room.product.sold === true ? (
                                 <div className="flex items-center">
                                     <span className="mr-2">Rate Seller:</span>
-                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} />
+                                    <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
                                 </div>
                             ) : (
                                 <div />)
