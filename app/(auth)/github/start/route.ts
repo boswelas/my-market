@@ -9,5 +9,7 @@ export function GET() {
     };
     const formattedParams = new URLSearchParams(params).toString();
     const finalURL = `${baseURL}?${formattedParams}`;
+    console.log("called github start");
+    console.log("final url: ", finalURL);
     return redirect(finalURL);
 }
