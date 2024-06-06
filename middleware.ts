@@ -23,6 +23,16 @@ const publicOnlyUrls: Routes = {
 export async function middleware(request: NextRequest) {
     const session = await getSession();
     const exists = publicOnlyUrls[request.nextUrl.pathname];
+    const noCacheRoutes = ["/github/start", "/github/complete", "google/start", "google/complete"]; // Add routes that shouldn't be cached
+
+    if (noCacheRoutes.includes(request.nextUrl.pathname)) {
+        // Set Cache-Control header to no-store for routes that shouldn't be cached
+        return NextResponse.next({
+            headers: {
+                "Cache-Control": "no-store",
+            },
+        });
+    }
     if (!session.id) {
         if (!exists) {
             return NextResponse.redirect(new URL("/", request.url));
