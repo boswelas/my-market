@@ -80,7 +80,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     }, [chatRoomId]);
 
     return (
-        <div className="p-5 flex flex-col h-screen max-w-7xl">
+        <div className="flex flex-col h-[94%]">
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
                 {messages.length > 0 && (
                     <div className="flex justify-center w-full my-8 relative">
