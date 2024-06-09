@@ -106,7 +106,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
                         ${formatToDollar(product.price)}
                     </span>
                     <form action={editProduct}>
-                        <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                        <button className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-emerald-500">
                             Edit product
                         </button></form>
                     <DeleteProductModal productId={product.id} />
@@ -116,7 +116,7 @@ export default async function Modal({ params }: { params: { id: string } }) {
                     ${formatToDollar(product.price)}
                 </span> <form action={getChat} className="flex items-center pl-64">
                     <button
-                        className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
+                        className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
                         Chat
                     </button>
                 </form>

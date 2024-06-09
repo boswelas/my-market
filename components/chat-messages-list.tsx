@@ -80,7 +80,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     }, [chatRoomId]);
 
     return (
-        <div className="flex flex-col h-[94%]">
+        <div className="flex flex-col h-[92%]">
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
                 {messages.length > 0 && (
                     <div className="flex justify-center w-full my-8 relative">
@@ -116,7 +116,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                                     <span className="text-xs">{GetChatMessageTime(message.created_at)}</span>
                                 </div>
                                 <div className={`flex flex-col gap-1 ${message.userId === userId ? "items-end" : ""}`}>
-                                    <span className={`${message.userId === userId ? "bg-neutral-500" : "bg-orange-500"} p-2.5 rounded-md max-w-96 max-h-[5rem] overflow-hidden`}>
+                                    <span className={`${message.userId === userId ? "bg-emerald-600" : "bg-neutral-700"} p-2.5 rounded-lg max-w-96 overflow-hidden`}>
                                         {message.payload}
                                     </span>
                                 </div>
@@ -137,9 +137,9 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                     placeholder="Write message..."
                 />
                 <button className="ml-2">
-                    <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
+                    <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
                 </button>
             </form>
-        </div>
+        </div >
     );
 }

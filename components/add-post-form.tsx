@@ -18,7 +18,7 @@ export default function AddPostForm() {
                 <div>
                     <textarea
                         className="bg-transparent rounded-md w-full h-48 focus:outline-none ring-2
-                        focus:ring-4 ring-neutral-200 focus:ring-orange-500 border-none
+                        focus:ring-4 ring-neutral-200 focus:ring-emerald-500 border-none
                         placeholder:text-neutral-400"
                         name="description"
                         required

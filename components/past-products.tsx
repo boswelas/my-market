@@ -48,7 +48,7 @@ export default async function PastProducts() {
                             ))}
                         </div>
                         <div className="flex justify-end mr-4">
-                            <Link href="/user-past-products" className="text-blue-500 text-sm">View All</Link>
+                            <Link href="/user-past-products" className="text-emerald-500 text-sm">View All</Link>
                         </div>
                     </div>
                 </div>)

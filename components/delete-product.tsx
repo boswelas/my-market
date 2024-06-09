@@ -28,7 +28,7 @@ export default function DeleteProductModal({ productId }: { productId: number })
     return (
         <React.Fragment>
             <button onClick={handleClickOpen}
-                className="bg-red-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                className="bg-neutral-500 w-40  px-5 py-2.5 rounded-md text-white font-semibold">
                 Delete Product
             </button>
             <Dialog
@@ -46,10 +46,10 @@ export default function DeleteProductModal({ productId }: { productId: number })
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={confirmDelete} autoFocus>
-                        Yes
+                    <Button onClick={confirmDelete} autoFocus >
+                        Delete
                     </Button>
-                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>

@@ -26,7 +26,7 @@ export default function SubmitComment({ postId }: SubmitCommentProps) {
                     placeholder="Write message..."
                 />
                 <button className="absolute right-0">
-                    <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
+                    <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
                 </button>
             </form>
         </div>

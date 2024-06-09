@@ -2,8 +2,8 @@
 
 import { giveRating } from "@/app/chats/[id]/actions";
 import Rating from "@mui/material/Rating";
-import { revalidatePath } from "next/cache";
 import { useState } from "react";
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 
 interface ratingProps {
     rater: number,
@@ -25,10 +25,11 @@ export default function UserRating({ rater, ratee, productId, existingRating, ch
     }
     if (rating !== 0) {
         return (
-            <div>
+            <div className="flex flex-col justify-center items-center">
                 <Rating
                     name="simple-controlled"
-                    size="small"
+                    size="medium"
+                    emptyIcon={<StarBorderOutlinedIcon style={{ color: 'gray' }} fontSize="inherit" />}
                     value={rating}
                     onChange={(event, newValue) => updateRating(newValue)}
                 />
@@ -37,10 +38,11 @@ export default function UserRating({ rater, ratee, productId, existingRating, ch
     }
     else {
         return (
-            <div>
+            <div className="flex flex-col justify-center items-center">
                 <Rating
                     name="simple-controlled"
-                    size="small"
+                    size="medium"
+                    emptyIcon={<StarBorderOutlinedIcon style={{ color: 'gray' }} fontSize="inherit" />}
                     value={0}
                     onChange={(event, newValue) => updateRating(newValue)}
                 />

@@ -64,8 +64,8 @@ export default async function Board() {
                     </div>
                 </Link>
             ))}
-            <Link href="/board/add-post" className="bg-orange-500 flex items-center justify-center rounded-full 
-            size-16 fixed bottom-24 right-8 text-white transition-colors hover:bg-orange-400">
+            <Link href="/board/add-post" className="bg-emerald-600 flex items-center justify-center rounded-full 
+            size-16 fixed bottom-24 right-[25%] text-white transition-colors hover:bg-emerald-500">
                 <PlusIcon className="size-10" />
             </Link>
             <div className=" mt-20" />

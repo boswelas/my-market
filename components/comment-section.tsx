@@ -23,7 +23,7 @@ interface CommentSectionProps {
 
 
 export default function CommentSection({ postId, user, comments }: { postId: number; user: userProps; comments: CommentSectionProps[] }) {
-    const formRef = useRef<HTMLFormElement>(null); // Create a ref for the form element
+    const formRef = useRef<HTMLFormElement>(null);
 
     const [optimisticState, reducerFn] = useOptimistic(
         comments,
@@ -60,9 +60,10 @@ export default function CommentSection({ postId, user, comments }: { postId: num
                         placeholder="Write message..."
                     />
                     <button className="absolute right-0">
-                        <ArrowUpCircleIcon className="size-10 text-orange-500 transition-colors hover:text-orange-300" />
+                        <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
                     </button>
-                </form>            </div>
+                </form>
+            </div>
             <div className="mt-5">
                 <CommentList comments={optimisticState} />
             </div>

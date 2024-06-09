@@ -62,9 +62,6 @@ export default async function ProductDetail({
     const getChat = async () => {
         "use server";
         const session = await getSession();
-        console.log("product id: ", product.id);
-        console.log("userId: ", session.id);
-        console.log("owner: ", product.userId)
         let room = await checkExistingChat(session.id!, product.userId, product.id);
         console.log(room);
         if (!room) {
@@ -110,12 +107,12 @@ export default async function ProductDetail({
                     <p>{product.description}</p>
                 </div>
                 {isOwner ? (
-                    <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
+                    <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md flex flex-row items-center justify-between border-neutral-600 border-t px-10 py-3 *:text-white bg-neutral-800">
                         <span className="font-semibold text-xl">
                             ${formatToDollar(product.price)}
                         </span>
                         <form action={editProduct}>
-                            <button className="bg-blue-500 px-5 py-2.5 rounded-md text-white font-semibold">
+                            <button className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold">
                                 Edit product
                             </button></form>
                         <DeleteProductModal productId={product.id} />
@@ -125,7 +122,7 @@ export default async function ProductDetail({
                         ${formatToDollar(product.price)}
                     </span> <form action={getChat} className="flex items-center pl-64">
                         <button
-                            className="bg-orange-500 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
+                            className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
                             Chat
                         </button>
                     </form>
