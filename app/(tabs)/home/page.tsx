@@ -16,7 +16,7 @@ async function getInitialProducts() {
             photo: true,
             id: true,
         },
-        take: 6,
+        take: 5,
         orderBy: {
             created_at: "desc",
         }
@@ -35,7 +35,7 @@ export const revalidate = 30;
 export default async function Products() {
     const initialProducts = await getInitialProducts();
     return (
-        <div>
+        <div className=" mb-20">
             <ProductList initialProducts={initialProducts} />
             <Link href="/home/add" className="bg-emerald-600 flex items-center justify-center rounded-full 
             size-16 fixed bottom-24 right-[25%] text-white transition-colors hover:bg-emerald-500">

@@ -2,7 +2,7 @@
 
 import { InitialProducts } from "@/app/(tabs)/home/page";
 import ListProduct from "./list-product";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { getMoreProducts } from "@/app/(tabs)/home/actions";
 
 interface ProductListProps {
@@ -15,24 +15,38 @@ export default function ProductList({ initialProducts }: ProductListProps) {
     const [page, setPage] = useState(0);
     const [isLastPage, setIsLastPage] = useState(false);
     const trigger = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+        setProducts(initialProducts);
+    }, [initialProducts]);
+
+    const fetchMoreProducts = useCallback(async () => {
+        setIsLoading(true);
+        const newProducts = await getMoreProducts(page + 1);
+        if (newProducts.length !== 0) {
+            setProducts((prev) => {
+                const uniqueProductsMap = new Map(prev.map(product => [product.id, product]));
+                newProducts.forEach(product => {
+                    if (!uniqueProductsMap.has(product.id)) {
+                        uniqueProductsMap.set(product.id, product);
+                    }
+                });
+                return Array.from(uniqueProductsMap.values());
+            });
+            setPage((prev) => prev + 1);
+        } else {
+            setIsLastPage(true);
+        }
+        setIsLoading(false);
+    }, [page]);
+
     useEffect(() => {
         const observer = new IntersectionObserver(
-            async (
-                entries: IntersectionObserverEntry[],
-                observer: IntersectionObserver
-            ) => {
+            async (entries, observer) => {
                 const element = entries[0];
                 if (element.isIntersecting && trigger.current) {
                     observer.unobserve(trigger.current);
-                    setIsLoading(true);
-                    const newProducts = await getMoreProducts(page + 1);
-                    if (newProducts.length !== 0) {
-                        setProducts((prev) => [...prev, ...newProducts]);
-                        setPage((prev) => prev + 1);
-                    } else {
-                        setIsLastPage(true);
-                    }
-                    setIsLoading(false);
+                    await fetchMoreProducts();
                 }
             },
             {
@@ -45,16 +59,18 @@ export default function ProductList({ initialProducts }: ProductListProps) {
         return () => {
             observer.disconnect();
         };
-    }, [page]);
+    }, [fetchMoreProducts]);
+
     return (
         <div className="p-5 flex flex-col gap-5">
             {products.map((product) => (
                 <ListProduct key={product.id} {...product} />
             ))}
             {!isLastPage ? (
-                <span
-                    ref={trigger} />
-            ) : <span className="mt-5 text-sm text-neutral-400 inline-block text-center align-middle">End of Products</span>}
+                <span ref={trigger} />
+            ) : (
+                <span className="mt-5 text-sm text-neutral-400 inline-block text-center align-middle">End of Products</span>
+            )}
         </div>
     );
 }
