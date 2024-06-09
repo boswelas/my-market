@@ -6,7 +6,7 @@ import { redirect, useRouter } from "next/navigation";
 
 export default function AddProductCloseButton() {
     const router = useRouter();
-    const onCloseClick = () => { redirect('/home'); };
+    const onCloseClick = () => { router.push('/home'); };
     return (
         <button onClick={onCloseClick}
             className="absolute right-5 top-5">
