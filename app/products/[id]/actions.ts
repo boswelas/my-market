@@ -28,8 +28,8 @@ export default async function deleteProduct(productId: number) {
                 visible: false
             }
         });
-        revalidatePath(`../home`)
         revalidatePath(`../profile`)
+        revalidatePath(`../home`)
         redirect(`../profile`)
     } else {
         return notFound();
