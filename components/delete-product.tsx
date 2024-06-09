@@ -1,4 +1,4 @@
-"use client"
+
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
@@ -8,10 +8,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import deleteProduct from '@/app/products/[id]/actions';
-import { useRouter } from 'next/navigation';
 
 export default function DeleteProductModal({ productId }: { productId: number }) {
-    const router = useRouter();
 
     const [open, setOpen] = React.useState(false);
 
@@ -25,7 +23,6 @@ export default function DeleteProductModal({ productId }: { productId: number })
 
     const confirmDelete = () => {
         deleteProduct(productId);
-        router.refresh();
     }
 
     return (

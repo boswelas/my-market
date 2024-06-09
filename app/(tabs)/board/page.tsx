@@ -28,7 +28,7 @@ async function getPosts() {
 }
 
 export const metadata = {
-    title: "Forum"
+    title: "Posts"
 }
 
 export default async function Board() {
