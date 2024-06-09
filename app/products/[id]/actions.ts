@@ -29,6 +29,7 @@ export default async function deleteProduct(productId: number) {
             }
         });
         revalidatePath(`../home`)
+        revalidatePath(`../profile`)
         redirect(`../profile`)
     } else {
         return notFound();

@@ -6,7 +6,7 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { uploadProduct } from "./actions";
 import { useFormState } from "react-dom";
-import CloseButton from "@/components/close-button";
+import AddProductCloseButton from "@/components/add-product-close";
 
 export default function AddProduct() {
     const [preview, setPreview] = useState("");
@@ -26,7 +26,7 @@ export default function AddProduct() {
 
     return (
         <div>
-            <CloseButton />
+            <AddProductCloseButton />
             <form action={action} className="p-5 flex flex-col gap-5 max-w-xl mx-auto"  >
                 <label
                     htmlFor="photo"
