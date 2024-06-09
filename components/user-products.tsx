@@ -8,6 +8,7 @@ async function getProducts(userId: number) {
         where: {
             userId,
             sold: false,
+            visible: true,
         },
         select: {
             id: true,

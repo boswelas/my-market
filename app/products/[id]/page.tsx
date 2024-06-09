@@ -7,6 +7,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { checkExistingChat, createChatRoom } from "./actions";
+import AddProductCloseButton from "@/components/add-product-close";
 
 
 
@@ -79,7 +80,7 @@ export default async function ProductDetail({
     return (
         <div className="flex flex-col items-center justify-center w-full pt-10">
             <div>
-                <CloseButton />
+                <AddProductCloseButton />
             </div>
             <div className="">
                 <div className="relative aspect-square h-96">
