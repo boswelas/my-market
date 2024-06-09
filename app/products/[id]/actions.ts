@@ -3,12 +3,10 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { revalidatePath } from "next/cache";
-import { notFound, redirect, useRouter } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 
-export async function deleteProduct(productId: number) {
-    const router = useRouter();
-
+export default async function deleteProduct(productId: number) {
     const session = await getSession();
     const user = await session.id;
     if (!user) {
@@ -30,10 +28,9 @@ export async function deleteProduct(productId: number) {
                 visible: false
             }
         });
-        revalidatePath(`../profile`);
-        revalidatePath(`../home`);
-        router.push('/profile');
-        router.refresh();
+        revalidatePath(`../profile`)
+        revalidatePath(`../home`)
+        redirect(`../profile`)
     } else {
         return notFound();
     }
