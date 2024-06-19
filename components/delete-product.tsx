@@ -8,10 +8,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import deleteProduct from '@/app/products/[id]/actions';
+import { useState } from 'react';
 
 export default function DeleteProductModal({ productId }: { productId: number }) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
