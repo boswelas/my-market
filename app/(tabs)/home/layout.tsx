@@ -5,8 +5,8 @@ export default function HomeLayout({ children, modal, }:
     }) {
     return (
         <>
-            {children}
             {modal}
+            {children}
         </>
     );
 }
