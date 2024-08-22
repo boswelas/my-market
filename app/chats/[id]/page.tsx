@@ -129,40 +129,40 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                     </div>
                     <div className="bg-neutral-800 p-2 rounded-lg items-center ">
                         {/* {room.product.userId == 3 ? ( */}
-                        // {room.product.userId == session.id! ? (
-                        <div>
-                            {room.product.sold === false ? (
-                                <div className="ml-14">
-                                    <form action={markSold}>
-                                        <button type="submit" className=" bg-emerald-800 primary-btn h-8 text-md w-32 hover:bg-emerald-700 ">Mark As Sold</button>
-                                    </form>
-                                </div>
-                            ) : (
-                                <div className="flex flex-col sm:flex-row items-center justify-center  sm:space-y-0 sm:space-x-32">
-                                    <div className="flex justify-center">
-                                        <form action={unmarkSold}>
-                                            <button type="submit" className=" bg-neutral-500 primary-btn h-8 text-md w-32 hover:bg-neutral-600">Undo Sale</button>
+                        {room.product.userId == session.id! ? (
+                            <div>
+                                {room.product.sold === false ? (
+                                    <div className="ml-14">
+                                        <form action={markSold}>
+                                            <button type="submit" className=" bg-emerald-800 primary-btn h-8 text-md w-32 hover:bg-emerald-700 ">Mark As Sold</button>
                                         </form>
                                     </div>
-                                    <div className="flex items-center justify-center">
-                                        <span className="mr-2 text-md">Rate Buyer:</span>
-                                        <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
-                                    </div>
-                                </div>
-                            )}
-
-                        </div>
-                        ) : (
-                        <div>
-                            {
-                                room.product.sold === true ? (
-                                    <div className="flex items-center">
-                                        <span className="mr-2 text-lg">Rate Seller:</span>
-                                        <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
-                                    </div>
                                 ) : (
-                                    <div />)
-                            }</div>)}
+                                    <div className="flex flex-col sm:flex-row items-center justify-center  sm:space-y-0 sm:space-x-32">
+                                        <div className="flex justify-center">
+                                            <form action={unmarkSold}>
+                                                <button type="submit" className=" bg-neutral-500 primary-btn h-8 text-md w-32 hover:bg-neutral-600">Undo Sale</button>
+                                            </form>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <span className="mr-2 text-md">Rate Buyer:</span>
+                                            <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
+                                        </div>
+                                    </div>
+                                )}
+
+                            </div>
+                        ) : (
+                            <div>
+                                {
+                                    room.product.sold === true ? (
+                                        <div className="flex items-center">
+                                            <span className="mr-2 text-lg">Rate Seller:</span>
+                                            <UserRating rater={rater} ratee={ratee} productId={room.product.id} existingRating={oldRating} chatPath={params.id} />
+                                        </div>
+                                    ) : (
+                                        <div />)
+                                }</div>)}
                     </div>
                 </div>
 
