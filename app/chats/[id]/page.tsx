@@ -121,14 +121,15 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     const oldRating = await getExistingRating(rater, ratee, room.product.id);
 
     return (
-        <div className="p-5 flex flex-col h-screen">
-            <div>
+        <div className="p-5 flex flex-col items-center h-screen">
+            <div className="w-[35em] md:w-[45em] lg:w-[55em]">
                 <div>
-                    <CloseButton />
-                </div>
-                <div className="bg-neutral-800 p-2 rounded-lg items-center ">
-                    {/* {room.product.userId == 3 ? ( */}
-                    {room.product.userId == session.id! ? (
+                    <div>
+                        <CloseButton />
+                    </div>
+                    <div className="bg-neutral-800 p-2 rounded-lg items-center ">
+                        {/* {room.product.userId == 3 ? ( */}
+                        // {room.product.userId == session.id! ? (
                         <div>
                             {room.product.sold === false ? (
                                 <div className="ml-14">
@@ -151,7 +152,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                             )}
 
                         </div>
-                    ) : (
+                        ) : (
                         <div>
                             {
                                 room.product.sold === true ? (
@@ -162,16 +163,17 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
                                 ) : (
                                     <div />)
                             }</div>)}
+                    </div>
                 </div>
-            </div>
 
-            <ChatMessagesList
-                chatRoomId={params.id}
-                // userId={3}
-                userId={session.id!}
-                username={user.username}
-                avatar={user.avatar!}
-                initialMessages={initialMessages} />
+                <ChatMessagesList
+                    chatRoomId={params.id}
+                    // userId={3}
+                    userId={session.id!}
+                    username={user.username}
+                    avatar={user.avatar!}
+                    initialMessages={initialMessages} />
+            </div>
         </div>
     )
 }
