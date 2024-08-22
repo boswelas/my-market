@@ -6,10 +6,11 @@ import Input from "./input";
 export default function AddPostForm() {
     const [state, action] = useFormState(uploadPost, null);
     return (
-        <div>
-            <form action={action} className="p-5 flex flex-col gap-5">
-                <div>
-                    <Input name="title"
+        <div className="mt-20 w-[30em] md:w-[45em]">
+            <form action={action} className="p-5 flex flex-col gap-5 ">
+                <div className="mb-2 ">
+                    <Input
+                        name="title"
                         required
                         placeholder="Title"
                         type="text">
@@ -17,7 +18,7 @@ export default function AddPostForm() {
                 </div>
                 <div>
                     <textarea
-                        className="bg-transparent rounded-md w-full h-48 focus:outline-none ring-2
+                        className="bg-transparent rounded-lg w-full h-48 focus:outline-none ring-2
                         focus:ring-4 ring-neutral-200 focus:ring-emerald-500 border-none
                         placeholder:text-neutral-400"
                         name="description"
@@ -26,8 +27,9 @@ export default function AddPostForm() {
                     >
                     </textarea>
                 </div>
-                <Button text="Post" />
-
+                <div className="">
+                    <Button text="Post" />
+                </div>
             </form>
         </div>
     )
