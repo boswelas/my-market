@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import getSession from "@/lib/session";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +16,6 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  isLoggedIn: boolean;
 }>) {
   return (
     <html lang="en">
