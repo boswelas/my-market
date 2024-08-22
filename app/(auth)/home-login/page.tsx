@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen mt-[10%]">
+    <div className="flex flex-col items-center justify-between max-h-screen mt-[10%]">
       <div className="max-w-screen-md">
         <div className="my-auto flex flex-col items-center gap-3 *:font-medium">
           <span className="text-9xl"></span>
