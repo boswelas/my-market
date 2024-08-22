@@ -27,10 +27,10 @@ export default function AddProduct() {
     return (
         <div className="max-h-screen">
             <AddProductCloseButton />
-            <form action={action} className="flex flex-col gap-5 max-w-xl mx-auto mt-14" >
+            <form action={action} className="flex flex-col gap-5 max-w-xl mx-auto mt-16" >
                 <label
                     htmlFor="photo"
-                    className="h-96 border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
+                    className="h-[23.5rem] border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
                     style={{
                         backgroundImage: `url(${preview})`,
                     }}

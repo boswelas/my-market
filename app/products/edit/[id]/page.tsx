@@ -65,14 +65,19 @@ export default async function editProduct({
     } else {
         return (
             <>
-                <CloseButton />
-                <EditProductForm
-                    id={product.id}
-                    title={product.title}
-                    photo={product.photo}
-                    price={product.price}
-                    description={product.description}
-                    userId={product.userId} /></>
+                <div className="flex flex-col items-center max-h-screen">
+                    <CloseButton />
+                    <div className="">
+                        <EditProductForm
+                            id={product.id}
+                            title={product.title}
+                            photo={product.photo}
+                            price={product.price}
+                            description={product.description}
+                            userId={product.userId} />
+                    </div>
+                </div>
+            </>
         );
     }
 }
