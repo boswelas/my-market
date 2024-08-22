@@ -67,7 +67,7 @@ export default function CommentSection({ postId, user, comments }: { postId: num
                 </form>
             </div>) :
                 (
-                    <div>Want to join in the conversation? <Link href="/home-login" className="text-emerald-600 underline font-semibold hover:text-emerald-500">Log in!</Link></div>
+                    <div className="text-lg">Want to join in the conversation? <Link href="/home-login" className="text-emerald-600 underline font-semibold hover:text-emerald-500">Log in!</Link></div>
                 )}
 
             <div className="mt-5">

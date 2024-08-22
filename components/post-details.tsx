@@ -136,38 +136,48 @@ export default async function PostDetails({ postId }: { postId: number }) {
 
 
     return (
-        <div className="p-5 text-white">
-            <CloseButton />
-            <div className="flex items-center gap-2 mb-2">
-                <Image
-                    width={28}
-                    height={28}
-                    className="size-7 rounded-full"
-                    src={post.user.avatar!}
-                    alt={post.user.username}
-                />
-                <div><div className="flex items-center">
-                    <span className="text-sm font-semibold mr-3">{post.user.username}  </span>
-                </div>
-                    <div className="text-xs">
-                        <span>{formatToTimeAgo(post.created_at.toString())}</span>
+        <div className="flex flex-col items-center">
+            <div className="w-[55em]">
+                <div className="text-white">
+                    <CloseButton />
+                    <div>
+                        <div className="mt-10 bg-neutral-800 bg-opacity-80 p-4 rounded-lg">
+                            <div className="ml-2">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <Image
+                                        width={28}
+                                        height={28}
+                                        className="size-7 rounded-full"
+                                        src={post.user.avatar!}
+                                        alt={post.user.username}
+                                    />
+                                    <div><div className="flex items-center">
+                                        <span className="text-sm font-semibold mr-3">{post.user.username}  </span>
+                                    </div>
+                                        <div className="text-xs">
+                                            <span>{formatToTimeAgo(post.created_at.toString())}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2 className="text-2xl font-semibold mt-4 mb-2">{post.title}</h2>
+                                <p className="mb-8">{post.description}</p>
+                                <div className="flex flex-col gap-5 items-start">
+                                    <div className="flex ml-[80%] items-center gap-2 text-neutral-400 text-sm ">
+                                        <EyeIcon className="size-5" />
+                                        <span>{post.views}</span>
+                                        {isLoggedIn ? (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={false} />) :
+                                            (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={true} />)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-8 ml-4">
+                            {isLoggedIn ? (<CommentSection postId={postId} user={currentUser} comments={comments} />) :
+                                (<CommentSection postId={postId} user={currentUser} comments={comments} />)}
+                        </div>
                     </div>
                 </div>
             </div>
-            <h2 className="text-lg font-semibold">{post.title}</h2>
-            <p className="mb-5">{post.description}</p>
-            <div className="flex flex-col gap-5 items-start">
-                <div className="flex items-center gap-2 text-neutral-400 text-sm">
-                    <EyeIcon className="size-5" />
-                    <span>{post.views}</span>
-                    {isLoggedIn ? (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={false} />) :
-                        (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={true} />)}
-
-                </div>
-                {isLoggedIn ? (<CommentSection postId={postId} user={currentUser} comments={comments} />) :
-                    (<CommentSection postId={postId} user={currentUser} comments={comments} />)}
-
-            </div>
-        </div>
+        </div >
     )
 }

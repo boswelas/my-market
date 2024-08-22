@@ -80,7 +80,7 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
     }, [chatRoomId]);
 
     return (
-        <div className="flex flex-col h-[92%]">
+        <div className="flex flex-col h-screen">
             <div className="flex-1 overflow-y-auto mb-4 no-scrollbar">
                 {messages.length > 0 && (
                     <div className="flex justify-center w-full my-8 relative">
@@ -126,20 +126,22 @@ export default function ChatMessagesList({ initialMessages, userId, chatRoomId, 
                 ))}
                 <div ref={messagesEndRef} />
             </div>
-            <form className="flex items-center" onSubmit={onSubmit}>
-                <input
-                    required
-                    onChange={onChange}
-                    value={message}
-                    className="bg-transparent rounded-full w-full h-10 focus:outline-none px-5 ring-2 focus:ring-4 transition ring-neutral-200 focus:ring-neutral-50 border-none placeholder:text-neutral-400"
-                    type="text"
-                    name="message"
-                    placeholder="Write message..."
-                />
-                <button className="ml-2">
-                    <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
-                </button>
-            </form>
+            <div className="mb-20">
+                <form className="flex items-center" onSubmit={onSubmit}>
+                    <input
+                        required
+                        onChange={onChange}
+                        value={message}
+                        className="bg-transparent rounded-full w-full h-10 focus:outline-none px-5 ring-2 focus:ring-4 transition ring-neutral-200 focus:ring-neutral-50 border-none placeholder:text-neutral-400"
+                        type="text"
+                        name="message"
+                        placeholder="Write message..."
+                    />
+                    <button className="ml-2">
+                        <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
+                    </button>
+                </form>
+            </div>
         </div >
     );
 }

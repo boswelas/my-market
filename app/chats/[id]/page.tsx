@@ -121,13 +121,13 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
     const oldRating = await getExistingRating(rater, ratee, room.product.id);
 
     return (
-        <div className="p-5 flex flex-col items-center h-screen">
+        <div className="p-5 flex flex-col items-center h-screen max-h-screen overflow-clip">
             <div className="w-[35em] md:w-[45em] lg:w-[55em]">
                 <div>
                     <div>
                         <CloseButton />
                     </div>
-                    <div className="bg-neutral-800 p-2 rounded-lg items-center ">
+                    <div className="bg-neutral-800 p-2 rounded-lg items-center">
                         {/* {room.product.userId == 3 ? ( */}
                         {room.product.userId == session.id! ? (
                             <div>

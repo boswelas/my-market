@@ -18,7 +18,7 @@ export default function CommentList({ comments }: CommentListProps) {
 
     return (
         <div>
-            <h3 className="text-lg font-semibold mb-2">Comments</h3>
+            <h3 className="text-xl font-semibold mt-1 mb-1">Comments</h3>
             {comments.map((comment, index) => (
                 <div key={index} className="flex items-center gap-3 mt-5">
                     <div>
@@ -36,7 +36,7 @@ export default function CommentList({ comments }: CommentListProps) {
                             <span>·</span>
                             <span className="text-xs text-neutral-400">{GetPostTime(comment.updated_at)}</span>
                         </div>
-                        <div className="mt-1 ml-10 text-sm">
+                        <div className="ml-10">
                             <span>{comment.payload}</span>
                         </div>
                     </div>
