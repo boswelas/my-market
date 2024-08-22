@@ -38,12 +38,14 @@ export default async function Board() {
     return (
         <div className="p-5 flex flex-col items-center mt-16">
             <div className="w-[30em] md:w-[40em] lg:w-[50em]">
-                {session.id && <div className="">
-                    <Link href="/board/add-post" className="bg-emerald-600 flex items-center justify-center 
-            p-1 w-28  rounded-lg text-white transition-colors hover:bg-emerald-500">
-                        Create Post
-                    </Link>
-                </div>}
+                {session.id &&
+                    <div className="ml-[84%]">
+                        <Link href="/board/add-post" className="border-emerald-600 border-2 flex items-center justify-center 
+            py-2 px-2 rounded-3xl text-white transition-colors hover:bg-emerald-600">
+                            <PlusIcon className="size-6 mr-1 stroke-2" /> New Post
+                        </Link>
+                    </div>
+                }
 
                 {posts.map((post) => (
                     <Link

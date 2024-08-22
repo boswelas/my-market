@@ -141,7 +141,7 @@ export default async function PostDetails({ postId }: { postId: number }) {
                 <div className="text-white">
                     <CloseButton />
                     <div>
-                        <div className="mt-10 bg-neutral-800 bg-opacity-80 p-4 rounded-lg">
+                        <div className="mt-10 bg-neutral-800 bg-opacity-70 p-4 rounded-lg">
                             <div className="ml-2">
                                 <div className="flex items-center gap-2 mb-2">
                                     <Image
@@ -171,7 +171,7 @@ export default async function PostDetails({ postId }: { postId: number }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-8 ml-4">
+                        <div className="mt-8 ml-4 mr-4">
                             {isLoggedIn ? (<CommentSection postId={postId} user={currentUser} comments={comments} />) :
                                 (<CommentSection postId={postId} user={currentUser} comments={comments} />)}
                         </div>
