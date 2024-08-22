@@ -18,6 +18,7 @@ const publicOnlyUrls: Routes = {
     "/home-login": true,
     "/board": true,
     "/chat": true,
+    "/shopping_bags.png": true
 };
 
 export async function middleware(request: NextRequest) {
