@@ -30,13 +30,15 @@ export default async function UserProducts() {
     if (user) {
         const products = await getProducts(user);
         return (
-            <div>
-                <CloseButton />
-                <h1 className="text-2xl font-semibold">My Products</h1>
-                <div className="p-5 flex flex-col gap-5">
-                    {products.map((product) => (
-                        <ListProduct key={product.id} {...product} />
-                    ))}
+            <div className="flex flex-col items-center">
+                <div className="">
+                    <CloseButton />
+                    <h1 className="text-2xl font-semibold mt-10 mb-5">My Products</h1>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {products.map((product) => (
+                            <ListProduct key={product.id} {...product} />
+                        ))}
+                    </div>
                 </div>
             </div>
         )

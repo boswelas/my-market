@@ -32,13 +32,15 @@ export default async function UserProducts() {
     if (user) {
         const purchases = await getPurchases(user);
         return (
-            <div>
-                <CloseButton />
-                <h1 className="text-2xl font-semibold">Purchases</h1>
-                <div className="p-5 flex flex-col gap-5">
-                    {purchases.map((purchase) => (
-                        <ListProduct title={purchase.product.title} price={purchase.product.price} created_at={purchase.product.created_at} photo={purchase.product.photo} id={purchase.product.id} key={purchase.product.id} {...purchase} />
-                    ))}
+            <div className="flex flex-col items-center">
+                <div>
+                    <CloseButton />
+                    <h1 className="text-2xl font-semibold mt-10 mb-5">Purchases</h1>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {purchases.map((purchase) => (
+                            <ListProduct title={purchase.product.title} price={purchase.product.price} created_at={purchase.product.created_at} photo={purchase.product.photo} id={purchase.product.id} key={purchase.product.id} {...purchase} />
+                        ))}
+                    </div>
                 </div>
             </div>
         )

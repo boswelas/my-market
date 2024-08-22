@@ -25,9 +25,9 @@ export default function AddProduct() {
     const [state, action] = useFormState(uploadProduct, null);
 
     return (
-        <div>
+        <div className="max-h-screen">
             <AddProductCloseButton />
-            <form action={action} className="p-5 flex flex-col gap-5 max-w-xl mx-auto mt-14" >
+            <form action={action} className="flex flex-col gap-5 max-w-xl mx-auto mt-14" >
                 <label
                     htmlFor="photo"
                     className="h-96 border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"
@@ -74,7 +74,9 @@ export default function AddProduct() {
                     placeholder="description"
                     errors={state?.fieldErrors.description}
                 />
-                <Button text="Upload" />
+                <div className="mb-2">
+                    <Button text="Upload" />
+                </div>
             </form>
         </div >
     );

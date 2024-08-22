@@ -33,7 +33,7 @@ export const revalidate = 30;
 export default async function Products() {
     const initialProducts = await getInitialProducts();
     return (
-        <div className=" mt-20">
+        <div className="mt-20">
             <ProductList initialProducts={initialProducts} />
 
         </div>
