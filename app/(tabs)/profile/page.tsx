@@ -14,7 +14,6 @@ async function getUser() {
         const user = await db.user.findUnique({
             where: {
                 id: session.id,
-                // id: 3
             },
         });
         if (user) {
@@ -42,9 +41,9 @@ export default async function Profile() {
 
     return (
         <div className="p-3 flex flex-col h-screen">
-            <div className="flex-1 overflow-y-auto mb-12 no-scrollbar">
+            <div className="flex-1 overflow-y-auto no-scrollbar mt-20">
                 < div className="flex justify-between">
-                    <h1>Welcome {user?.username}!</h1>
+                    <h1>Welcome {user.username}!</h1>
                     <form action={logOut}>
                         <button className="">Log out</button>
                     </form>
