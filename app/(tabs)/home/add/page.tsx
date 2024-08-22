@@ -27,7 +27,7 @@ export default function AddProduct() {
     return (
         <div>
             <AddProductCloseButton />
-            <form action={action} className="p-5 flex flex-col gap-5 max-w-xl mx-auto"  >
+            <form action={action} className="p-5 flex flex-col gap-5 max-w-xl mx-auto mt-14" >
                 <label
                     htmlFor="photo"
                     className="h-96 border-2 aspect-square flex items-center justify-center flex-col text-neutral-300 border-neutral-300 rounded-md border-dashed cursor-pointer bg-center bg-cover"

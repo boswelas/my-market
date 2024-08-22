@@ -9,7 +9,7 @@ export default function AddProductCloseButton() {
     const onCloseClick = () => { router.push('/home'); };
     return (
         <button onClick={onCloseClick}
-            className="absolute right-5 top-5">
+            className="absolute right-5">
             <XMarkIcon className="size-10" />
         </button>
     );
