@@ -1,15 +1,17 @@
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { GetChatTime } from "@/lib/utils";
+import { redirect } from 'next/navigation'
 import Link from "next/link";
+import { NextResponse } from "next/server";
+import { number } from "zod";
 
 export const metadata = {
     title: "Chats"
 }
 
-async function getChats() {
-    const session = await getSession();
-    const user = session.id;
+async function getChats(user?: number) {
+
     // const user = 3;
     const chats = await db.user.findMany({
         where: {
@@ -54,7 +56,12 @@ async function getChats() {
 }
 
 export default async function Chat() {
-    const chats = await getChats();
+    const session = await getSession();
+    const user = session.id;
+    const chats = await getChats(user);
+    if (typeof user !== "number") {
+        redirect(`/home-login`)
+    }
     if (!chats || chats.length === 0) {
         return <div>No Chats to Display</div>
     } else {

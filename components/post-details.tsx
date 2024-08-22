@@ -7,6 +7,8 @@ import LikeButton from "@/components/like-button";
 import CloseButton from "@/components/close-button";
 import CommentSection from "@/components/comment-section";
 import { notFound } from "next/navigation";
+import getSession from "@/lib/session";
+
 
 async function getCurrentUser(userId: number) {
     try {
@@ -104,15 +106,35 @@ async function getLikeStatus(postId: number, userId: number) {
     };
 }
 
-export default async function PostDetails({ userId, postId }: { userId: number; postId: number }) {
+export default async function PostDetails({ postId }: { postId: number }) {
     const post = await getCachedPost(postId);
     if (!post) {
         return notFound();
     }
-    const { likeCount, isLiked } = await getCachedLikeStatus(postId, userId);
+
     const comments = post.comments;
-    const user = await getCurrentUser(userId);
+    const session = await getSession();
+    const userId = await session?.id;
+    const user = userId ? await getCurrentUser(userId) : undefined;
     const currentUser = user || { username: '', avatar: null };
+    let likeCount = 0;
+    let isLiked = false;
+    let isLoggedIn = false;
+
+    if (userId) {
+        isLoggedIn = true;
+        const likeStatus = await getCachedLikeStatus(postId, userId);
+        likeCount = likeStatus.likeCount;
+        isLiked = likeStatus.isLiked;
+    } else {
+        likeCount = await db.like.count({
+            where: {
+                postId,
+            },
+        });
+    }
+
+
     return (
         <div className="p-5 text-white">
             <CloseButton />
@@ -138,9 +160,13 @@ export default async function PostDetails({ userId, postId }: { userId: number; 
                 <div className="flex items-center gap-2 text-neutral-400 text-sm">
                     <EyeIcon className="size-5" />
                     <span>{post.views}</span>
-                    <LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} />
+                    {isLoggedIn ? (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={false} />) :
+                        (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={true} />)}
+
                 </div>
-                <CommentSection postId={postId} user={currentUser} comments={comments} />
+                {isLoggedIn ? (<CommentSection postId={postId} user={currentUser} comments={comments} />) :
+                    (<CommentSection postId={postId} user={currentUser} comments={comments} />)}
+
             </div>
         </div>
     )

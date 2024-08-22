@@ -10,6 +10,9 @@ const nextConfig = {
             },
             {
                 hostname: "lh3.googleusercontent.com"
+            },
+            {
+                hostname: "img.icons8.com"
             }
         ]
     }

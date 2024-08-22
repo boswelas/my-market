@@ -4,10 +4,11 @@ import CommentList from "./comment-list"
 import { useFormState } from "react-dom";
 import { commentOnPost } from "@/app/posts/[id]/actions";
 import { useOptimistic, useRef } from "react";
+import Link from "next/link";
 
 interface userProps {
-    username: string;
-    avatar: string | null;
+    username?: string;
+    avatar?: string | null;
 }
 
 interface CommentSectionProps {
@@ -32,11 +33,12 @@ export default function CommentSection({ postId, user, comments }: { postId: num
 
 
     const interceptAction = async (_: any, formData: FormData) => {
+
         const newComment = {
             updated_at: new Date(),
             user: {
-                username: user.username,
-                avatar: user.avatar,
+                username: user.username || "anonymous",
+                avatar: user.avatar || null,
             },
             payload: formData.get("payload")!.toString(),
         }
@@ -48,7 +50,7 @@ export default function CommentSection({ postId, user, comments }: { postId: num
 
     return (
         <div className="w-full">
-            <div>
+            {user.username ? (<div>
                 <form ref={formRef} action={action} className="flex relative" >
                     <input type="hidden" name="postId" value={postId} />
 
@@ -63,7 +65,11 @@ export default function CommentSection({ postId, user, comments }: { postId: num
                         <ArrowUpCircleIcon className="size-10 text-emerald-600 transition-colors hover:text-emerald-500" />
                     </button>
                 </form>
-            </div>
+            </div>) :
+                (
+                    <div>Want to join in the conversation? <Link href="/home-login" className="text-emerald-600 underline font-semibold hover:text-emerald-500">Log in!</Link></div>
+                )}
+
             <div className="mt-5">
                 <CommentList comments={optimisticState} />
             </div>

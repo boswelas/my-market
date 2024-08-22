@@ -14,31 +14,39 @@ const publicOnlyUrls: Routes = {
     "/github/complete": true,
     "/google/start": true,
     "/google/complete": true,
+    "/home": true,
+    "/home-login": true,
+    "/board": true,
+    "/chat": true,
 };
 
 export async function middleware(request: NextRequest) {
     const session = await getSession();
-    const exists = publicOnlyUrls[request.nextUrl.pathname];
-    const noCacheRoutes = ["/github/start", "/github/complete", "google/start", "google/complete"]; // Add routes that shouldn't be cached
+    const { pathname } = request.nextUrl;
+    const exists = publicOnlyUrls[pathname];
+    const noCacheRoutes = ["/github/start", "/github/complete", "/google/start", "/google/complete"]; // routes that shouldn't be cached
 
-    if (noCacheRoutes.includes(request.nextUrl.pathname)) {
-        // Set Cache-Control header to no-store for routes that shouldn't be cached
+    // Handle no-cache routes
+    if (noCacheRoutes.includes(pathname)) {
         return NextResponse.next({
             headers: {
                 "Cache-Control": "no-store",
             },
         });
     }
+
+    // Dynamic check for /posts/{id}
+    const isPostRoute = pathname.startsWith("/posts/") && pathname.match(/^\/posts\/\d+$/);
+    const isProductsRoute = pathname.startsWith("/products/") && pathname.match(/^\/products\/\d+$/);
+
+
     if (!session.id) {
-        if (!exists) {
+        if (!exists && !isPostRoute && !isProductsRoute) {
             return NextResponse.redirect(new URL("/", request.url));
         }
     }
-    else {
-        if (exists) {
-            return NextResponse.redirect(new URL("/home", request.url));
-        }
-    }
+
+    return NextResponse.next();
 }
 
 export const config = {

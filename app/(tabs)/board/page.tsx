@@ -1,4 +1,5 @@
 import db from "@/lib/database";
+import getSession from "@/lib/session";
 import { formatToTimeAgo } from "@/lib/utils";
 import { HandThumbUpIcon } from "@heroicons/react/16/solid";
 import { PlusIcon } from "@heroicons/react/24/solid";
@@ -33,8 +34,16 @@ export const metadata = {
 
 export default async function Board() {
     const posts = await getPosts();
+    const session = await getSession();
     return (
-        <div className="p-5 flex flex-col">
+        <div className="p-5 flex flex-col mt-16">
+            {session.id && <div className="">
+                <Link href="/board/add-post" className="bg-emerald-600 flex items-center justify-center 
+            p-1 w-28  rounded-lg text-white transition-colors hover:bg-emerald-500">
+                    Create Post
+                </Link>
+            </div>}
+
             {posts.map((post) => (
                 <Link
                     key={post.id}
@@ -64,11 +73,8 @@ export default async function Board() {
                     </div>
                 </Link>
             ))}
-            <Link href="/board/add-post" className="bg-emerald-600 flex items-center justify-center rounded-full 
-            size-16 fixed bottom-24 right-[25%] text-white transition-colors hover:bg-emerald-500">
-                <PlusIcon className="size-10" />
-            </Link>
-            <div className=" mt-20" />
+
+
         </div>
 
     );

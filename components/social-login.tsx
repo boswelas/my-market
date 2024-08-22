@@ -1,5 +1,7 @@
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import Image from "next/image";
+
 
 export default function SocialLogin() {
     return (
@@ -11,7 +13,7 @@ export default function SocialLogin() {
                     <span>Continue with Github</span>
                 </Link>
                 <Link href="/google/start" className="primary-btn flex h-10 items-center justify-center gap-3" prefetch={false}>
-                    <span><ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" /></span>
+                    <Image src={"https://img.icons8.com/?size=100&id=17949&format=png&color=000000"} height={26} width={26} alt="Google"></Image>
                     <span>Continue with Google</span>
                 </Link>
             </div>

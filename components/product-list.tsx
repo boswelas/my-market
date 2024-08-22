@@ -62,14 +62,20 @@ export default function ProductList({ initialProducts }: ProductListProps) {
     }, [fetchMoreProducts]);
 
     return (
-        <div className="p-5 flex flex-col gap-5">
-            {products.map((product) => (
-                <ListProduct key={product.id} {...product} />
-            ))}
+        <div className="p-5">
+            <div className="flex justify-center">
+                <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {products.map((product) => (
+                        <ListProduct key={product.id} {...product} />
+                    ))}
+                </div>
+            </div>
             {!isLastPage ? (
                 <span ref={trigger} />
             ) : (
-                <span className="mt-5 text-sm text-neutral-400 inline-block text-center align-middle">End of Products</span>
+                <div className=" w-full flex items-center justify-center">
+                    <span className="mt-5 text-sm text-neutral-400 inline-block text-center">End of Products</span>
+                </div>
             )}
         </div>
     );

@@ -57,6 +57,9 @@ export default async function Modal({ params }: { params: { id: string } }) {
     const getChat = async () => {
         "use server";
         const session = await getSession();
+        if (!session.id) {
+            redirect(`/home-login`)
+        }
         console.log("product id: ", product.id);
         console.log("userId: ", session.id);
         console.log("owner: ", product.userId)
@@ -74,53 +77,60 @@ export default async function Modal({ params }: { params: { id: string } }) {
         redirect(`./edit/${product.id}`)
     };
     return (
-        <div className="absolute w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-60 left-0 top-0">
-            <CloseButton />
-            <div className="max-w-screen-sm h-1/2  flex justify-center w-full">
-                <div className="relative aspect-square">
-                    <Image fill src={product.photo} alt={product.title} className="object-cover" />
+        <div>
+            <div className="flex flex-col items-center">
+                <div className="fixed mx-auto w-[55%] h-full z-50 flex items-center justify-center bg-black bg-opacity-80 top-0">
+                    <CloseButton />
+                    <div className="grid grid-cols-2 items-center">
+                        <div className="flex justify-center w-96 h-96 p-4">
+                            <div className="relative aspect-square rounded-lg">
+                                <Image fill src={product.photo} alt={product.title} className="object-cover" />
+                            </div>
+                        </div>
+                        <div className="">
+                            <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
+                                <div className="size-10 rounded-full overflow-hidden">
+                                    <Image
+                                        src={`${product.user.avatar}`}
+                                        width={40}
+                                        height={40}
+                                        alt={product.user.username}
+                                    />
+
+                                </div>
+                                <div>
+                                    <h3>{product.user.username}</h3>
+                                </div>
+                            </div>
+                            <div className="p-5">
+                                <h1 className="text-2xl font-semibold">{product.title}</h1>
+                                <p>{product.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {isOwner ? (
+                        <div className="absolute bottom-0 left-0 right-0 mx-auto w-full grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
+                            <span className="font-semibold text-xl">
+                                ${formatToDollar(product.price)}
+                            </span>
+                            <form action={editProduct}>
+                                <button className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-emerald-500">
+                                    Edit product
+                                </button></form>
+                            <DeleteProductModal productId={product.id} />
+                        </div>
+                    ) : <div className="absolute bottom-0 left-0 right-0 w-full grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
+                        <span className="font-semibold text-xl flex items-center pl-8">
+                            ${formatToDollar(product.price)}
+                        </span> <form action={getChat} className="flex items-center pl-64">
+                            <button
+                                className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
+                                Chat
+                            </button>
+                        </form>
+                    </div>}
                 </div>
             </div>
-            <div>
-                <div className="p-5 flex items-center gap-3 border-b border-neutral-700">
-                    <div className="size-10 rounded-full overflow-hidden">
-                        <Image
-                            src={`${product.user.avatar!}`}
-                            width={40}
-                            height={40}
-                            alt={product.user.username}
-                        />
-
-                    </div>
-                    <div>
-                        <h3>{product.user.username}</h3>
-                    </div>
-                </div>
-                <div className="p-5">
-                    <h1 className="text-2xl font-semibold">{product.title}</h1>
-                    <p>{product.description}</p>
-                </div></div>
-            {isOwner ? (
-                <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-3 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
-                    <span className="font-semibold text-xl">
-                        ${formatToDollar(product.price)}
-                    </span>
-                    <form action={editProduct}>
-                        <button className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold hover:bg-emerald-500">
-                            Edit product
-                        </button></form>
-                    <DeleteProductModal productId={product.id} />
-                </div>
-            ) : <div className="fixed bottom-0 left-0 right-0 mx-auto max-w-screen-md grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
-                <span className="font-semibold text-xl flex items-center pl-8">
-                    ${formatToDollar(product.price)}
-                </span> <form action={getChat} className="flex items-center pl-64">
-                    <button
-                        className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
-                        Chat
-                    </button>
-                </form>
-            </div>}
         </div>
     );
 }

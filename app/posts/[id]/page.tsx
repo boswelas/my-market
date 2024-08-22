@@ -14,9 +14,8 @@ export default async function PostDetail({
     if (isNaN(id)) {
         return notFound();
     }
-    const session = await getSession();
-    const userId = await session.id!;
+
     return (
-        <PostDetails userId={userId} postId={id} />
+        <PostDetails postId={id} />
     );
 }
