@@ -9,7 +9,7 @@ export default function CloseButton() {
     const onCloseClick = () => { router.back(); };
     return (
         <button onClick={onCloseClick}
-            className="absolute right-5 top-5">
+            className="absolute right-[2.5%] top-[10%]">
             <XMarkIcon className="size-10" />
         </button>
     );

@@ -1,9 +1,3 @@
-// get product id
-// get user id
-//make sure user is owner ---not then 404
-//show form
-//defaults are what's currently in the form
-
 import CloseButton from "@/components/close-button";
 import EditProductForm from "@/components/edit-product-form";
 import db from "@/lib/database";

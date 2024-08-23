@@ -6,7 +6,7 @@ import Input from "./input";
 export default function AddPostForm() {
     const [state, action] = useFormState(uploadPost, null);
     return (
-        <div className="mt-20 w-[30em] md:w-[45em]">
+        <div className="w-[30em] md:w-[45em]">
             <form action={action} className="p-5 flex flex-col gap-5 ">
                 <div className="mb-2 ">
                     <Input

@@ -11,15 +11,15 @@ import { Rating } from "@mui/material";
 async function getUser() {
     const session = await getSession();
     if (session.id) {
-    const user = await db.user.findUnique({
-        where: {
-            id: session.id,
-            // id: 3
-        },
-    });
-    if (user) {
-        return user;
-    }
+        const user = await db.user.findUnique({
+            where: {
+                id: session.id,
+                // id: 3
+            },
+        });
+        if (user) {
+            return user;
+        }
     }
     notFound();
 }
