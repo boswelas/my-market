@@ -1,7 +1,7 @@
 export default function Loading() {
     return (
         <div className="p-5 animate-pulse flex justify-center gap-5">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
                 {[...Array(8)].map((_, index) => (
                     <div key={index} className="flex md:flex-col bg-neutral-800 rounded-lg w-80 sm:w-96 md:w-[17em] md:h-96 shadow-xl hover:shadow-2xl">

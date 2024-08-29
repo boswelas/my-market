@@ -1,20 +1,21 @@
 
+"use client"
+import { ThreeDots } from "react-loader-spinner";
+
+
 export default function Loading() {
     return (
-        <div className="p-5 animate-pulse flex flex-col gap-5">
-            {[...Array(10)].map((_, index) => (
-                <div key={index} className="*:rounded-md flex gap-5 animate-pulse">
-
-                    <div className="flex flex-col gap-2 *:rounded-md">
-                        <div className="bg-neutral-700 h-5 w-20" />
-                        <div className="bg-neutral-700 h-5 w-40" />
-                        <div className="flex gap-2 *:rounded-md">
-                            <div className="bg-neutral-700 h-5 w-5" />
-                            <div className="bg-neutral-700 h-5 w-5" />
-                        </div>
-                    </div>
-                </div>
-            ))}
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <ThreeDots
+                visible={true}
+                height="80"
+                width="80"
+                color="#737373"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
         </div>
     )
 }
