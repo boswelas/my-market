@@ -1,7 +1,7 @@
-import Button from "./button";
 import { uploadPost } from "@/app/(tabs)/board/add-post/actions";
 import { useFormState } from "react-dom";
-import Input from "./input";
+import Input from "../input";
+import Button from "../button";
 
 export default function AddPostForm() {
     const [state, action] = useFormState(uploadPost, null);

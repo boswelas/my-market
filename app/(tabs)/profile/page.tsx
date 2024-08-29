@@ -1,11 +1,11 @@
 import UserProducts from "@/components/profile/user-products";
 import UserPurchases from "@/components/profile/user-purchases";
-import PastProducts from "@/components/past-products";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import { getRatings } from "./actions";
 import { Rating } from "@mui/material";
+import PastProducts from "@/components/profile/past-products";
 
 
 async function getUser() {
