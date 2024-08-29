@@ -69,7 +69,7 @@ export default async function Chat() {
         return (
             <>
                 <div className="flex flex-col items-center">
-                    <div className="w-[35em] md:w-[45em] lg:w-[55em]">
+                    <div className="w-[20em] sm:w-[30em] md:w-[40em] lg:w-[50em]">
                         <div>
                             <h1 className="text-white text-4xl">Chats</h1>
                         </div>

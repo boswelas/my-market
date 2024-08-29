@@ -122,7 +122,7 @@ export default async function ChatRoom({ params }: { params: { id: string } }) {
 
     return (
         <div className="p-5 flex flex-col items-center h-screen max-h-screen overflow-clip">
-            <div className="h-[90%] w-[35em] md:w-[45em] lg:w-[55em]">
+            <div className="h-[90%] w-[20em] sm:w-[30em] md:w-[40em] lg:w-[50em]">
                 <div>
                     <div className="absolute right-[2%] sm:right-[5%] lg:right-[10%] sm:top-[2.5%] lg:top-[5%]">
                         <CloseButton />
