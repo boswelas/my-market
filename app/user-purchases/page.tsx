@@ -34,7 +34,9 @@ export default async function UserProducts() {
         return (
             <div className="flex flex-col items-center">
                 <div>
-                    <CloseButton />
+                    <div className="absolute right-[2%] sm:right-[5%] lg:right-[10%] sm:top-[2.5%] lg:top-[5%]">
+                        <CloseButton />
+                    </div>
                     <h1 className="text-2xl font-semibold mt-10 mb-5">Purchases</h1>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {purchases.map((purchase) => (

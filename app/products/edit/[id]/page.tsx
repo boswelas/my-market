@@ -60,7 +60,9 @@ export default async function editProduct({
         return (
             <>
                 <div className="flex flex-col items-center max-h-screen">
-                    <CloseButton />
+                    <div className="absolute right-[2%] sm:right-[5%] lg:right-[10%] sm:top-[2.5%] lg:top-[5%]">
+                        <CloseButton />
+                    </div>
                     <div className="">
                         <EditProductForm
                             id={product.id}
