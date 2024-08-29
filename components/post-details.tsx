@@ -137,7 +137,7 @@ export default async function PostDetails({ postId }: { postId: number }) {
 
     return (
         <div className="flex flex-col items-center">
-            <div className="w-[55em]">
+            <div className="sm:w-[35em] md:w-[45em] lg:w-[55em]">
                 <div className="text-white">
                     <CloseButton />
                     <div>
@@ -162,7 +162,7 @@ export default async function PostDetails({ postId }: { postId: number }) {
                                 <h2 className="text-2xl font-semibold mt-4 mb-2">{post.title}</h2>
                                 <p className="mb-8">{post.description}</p>
                                 <div className="flex flex-col gap-5 items-start">
-                                    <div className="flex ml-[80%] items-center gap-2 text-neutral-400 text-sm ">
+                                    <div className="flex sm:ml-[70%] md:ml-[75%] lg:ml-[80%] items-center gap-2 text-neutral-400 text-sm ">
                                         <EyeIcon className="size-5" />
                                         <span>{post.views}</span>
                                         {isLoggedIn ? (<LikeButton isLiked={isLiked} likeCount={likeCount} postId={postId} isDisabled={false} />) :
