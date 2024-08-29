@@ -1,11 +1,11 @@
-import ChatMessagesList from "@/components/chat-messages-list";
+import ChatMessagesList from "@/components/chats/chat-messages-list";
 import CloseButton from "@/components/close-button";
 import db from "@/lib/database"
 import getSession from "@/lib/session";
 import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { existingRating, markAsSold, unmarkAsSold } from "./actions";
-import UserRating from "@/components/user-rating";
+import UserRating from "@/components/profile/user-rating";
 
 async function getRoom(id: string) {
     const room = await db.chatRoom.findUnique({

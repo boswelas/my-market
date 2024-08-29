@@ -1,6 +1,6 @@
 import CloseButton from "@/components/close-button";
-import ListProduct from "@/components/list-product";
-import ProductList from "@/components/product-list";
+import ListProduct from "@/components/home/list-product";
+import ProductList from "@/components/home/product-list";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 

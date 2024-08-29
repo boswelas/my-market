@@ -1,5 +1,5 @@
 import CloseButton from "@/components/close-button";
-import EditProductForm from "@/components/edit-product-form";
+import EditProductForm from "@/components/products/edit-product-form";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";

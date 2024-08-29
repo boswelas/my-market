@@ -1,4 +1,4 @@
-import ProductList from "@/components/product-list";
+import ProductList from "@/components/home/product-list";
 import db from "@/lib/database";
 import { Prisma } from "@prisma/client";
 

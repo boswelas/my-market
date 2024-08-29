@@ -3,9 +3,9 @@ import { EyeIcon } from "@heroicons/react/24/solid";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import db from "@/lib/database";
-import LikeButton from "@/components/like-button";
+import LikeButton from "@/components/posts/like-button";
 import CloseButton from "@/components/close-button";
-import CommentSection from "@/components/comment-section";
+import CommentSection from "@/components/posts/comment-section";
 import { notFound } from "next/navigation";
 import getSession from "@/lib/session";
 

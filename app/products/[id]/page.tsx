@@ -1,5 +1,5 @@
 import CloseButton from "@/components/close-button";
-import DeleteProductModal from "@/components/delete-product";
+import DeleteProductModal from "@/components/products/delete-product";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
 import { formatToDollar } from "@/lib/utils";
@@ -7,7 +7,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 import { checkExistingChat, createChatRoom } from "./actions";
-import AddProductCloseButton from "@/components/add-product-close";
+import AddProductCloseButton from "@/components/products/add-product-close";
 
 
 

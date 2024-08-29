@@ -1,4 +1,4 @@
-import PostDetails from "@/components/post-details";
+import PostDetails from "@/components/posts/post-details";
 import getSession from "@/lib/session";
 import { notFound } from "next/navigation";
 

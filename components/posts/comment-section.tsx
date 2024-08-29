@@ -1,10 +1,10 @@
 "use client"
 import { ArrowUpCircleIcon } from "@heroicons/react/24/solid";
-import CommentList from "./comment-list"
 import { useFormState } from "react-dom";
 import { commentOnPost } from "@/app/posts/[id]/actions";
 import { useOptimistic, useRef } from "react";
 import Link from "next/link";
+import CommentList from "./comment-list";
 
 interface userProps {
     username?: string;

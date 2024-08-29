@@ -6,7 +6,7 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { uploadProduct } from "./actions";
 import { useFormState } from "react-dom";
-import AddProductCloseButton from "@/components/add-product-close";
+import AddProductCloseButton from "@/components/products/add-product-close";
 
 export default function AddProduct() {
     const [preview, setPreview] = useState("");

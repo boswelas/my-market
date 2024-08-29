@@ -4,7 +4,7 @@ import getSession from "@/lib/session";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { formatToDollar } from "@/lib/utils";
-import DeleteProductModal from "@/components/delete-product";
+import DeleteProductModal from "@/components/products/delete-product";
 import { checkExistingChat, createChatRoom } from "@/app/products/[id]/actions";
 
 

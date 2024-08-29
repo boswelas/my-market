@@ -1,6 +1,6 @@
 "use client";
 
-import AddPostForm from "@/components/add-post-form";
+import AddPostForm from "@/components/posts/add-post-form";
 import CloseButton from "@/components/close-button";
 
 export default function addPost() {

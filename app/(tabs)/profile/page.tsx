@@ -1,5 +1,5 @@
-import UserProducts from "@/components/user-products";
-import UserPurchases from "@/components/user-purchases";
+import UserProducts from "@/components/profile/user-products";
+import UserPurchases from "@/components/profile/user-purchases";
 import PastProducts from "@/components/past-products";
 import db from "@/lib/database";
 import getSession from "@/lib/session";
