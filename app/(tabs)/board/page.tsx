@@ -37,7 +37,7 @@ export default async function Board() {
     const session = await getSession();
     return (
         <div className="p-5 flex flex-col items-center mt-16">
-            <div className="w-[30em] md:w-[40em] lg:w-[50em]">
+            <div className="w-[20em] sm:w-[30em] md:w-[40em] lg:w-[50em]">
                 {session.id &&
                     <div className="ml-[84%]">
                         <Link href="/board/add-post" className="border-emerald-600 border-2 flex items-center justify-center 

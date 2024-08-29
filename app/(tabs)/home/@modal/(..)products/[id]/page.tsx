@@ -79,10 +79,12 @@ export default async function Modal({ params }: { params: { id: string } }) {
     return (
         <div>
             <div className="flex flex-col items-center">
-                <div className="fixed mx-auto w-[55%] h-full z-50 flex items-center justify-center bg-black bg-opacity-80 top-0">
-                    <CloseButton />
-                    <div className="grid grid-cols-2 items-center">
-                        <div className="flex justify-center w-96 h-96 p-4">
+                <div className="fixed mx-auto w-[75%] sm:w-[80%] md:w-[80%] lg:w-[55%] h-full max-h-screen z-50 flex items-center justify-center bg-black bg-opacity-80 top-0">
+                    <div className="absolute right-[2%] top-[2%] sm:right-[2.5%] lg:right-[5%] sm:top-[2.5%] lg:top-[5%]">
+                        <CloseButton />
+                    </div>
+                    <div className="grid md:grid-cols-2 sm:grid-cols-1 items-center">
+                        <div className="flex justify-center w-64 h-64 sm:w-96 sm:h-96 p-4">
                             <div className="relative aspect-square rounded-lg">
                                 <Image fill src={product.photo} alt={product.title} className="object-cover" />
                             </div>
@@ -120,9 +122,9 @@ export default async function Modal({ params }: { params: { id: string } }) {
                             <DeleteProductModal productId={product.id} />
                         </div>
                     ) : <div className="absolute bottom-0 left-0 right-0 w-full grid grid-cols-2 border-neutral-600 border-t px-5 py-3 *:text-white bg-neutral-800">
-                        <span className="font-semibold text-xl flex items-center pl-8">
+                        <span className="font-semibold text-xl flex items-center sm:pl-8">
                             ${formatToDollar(product.price)}
-                        </span> <form action={getChat} className="flex items-center pl-64">
+                        </span> <form action={getChat} className="flex items-center ml-14 sm:ml-64">
                             <button
                                 className="bg-emerald-600 px-5 py-2.5 rounded-md text-white font-semibold flex items-center">
                                 Chat

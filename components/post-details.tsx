@@ -138,8 +138,9 @@ export default async function PostDetails({ postId }: { postId: number }) {
     return (
         <div className="flex flex-col items-center">
             <div className="sm:w-[35em] md:w-[45em] lg:w-[55em]">
-                <div className="text-white">
-                    <CloseButton />
+                <div className="text-white ">
+                    <div className="absolute right-[2%] sm:right-[5%] lg:right-[10%] sm:top-[2.5%] lg:top-[5%]">
+                        <CloseButton /></div>
                     <div>
                         <div className="mt-10 bg-neutral-800 bg-opacity-70 p-4 rounded-lg">
                             <div className="ml-2">
