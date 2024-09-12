@@ -24,7 +24,6 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#problems-and-solutions">Problems and Solutions</a></li>
-    <li><a href="#future-goals">Future Goals</a></li>
   </ol>
 </details>
 
