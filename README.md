@@ -1,7 +1,8 @@
 # My Market
 
-A serverless marketplace where users can buy and sell used items. 
-Check it out live here: <a href="https://my-market-henna.vercel.app">my-market-henna.vercel.app</a>
+<span>A serverless marketplace where users can buy and sell used items. </span>
+<br />
+<span>Check it out live here: <a href="https://my-market-henna.vercel.app">my-market-henna.vercel.app</a></span>
 
 <!-- TABLE OF CONTENTS -->
   ### Table of Contents
