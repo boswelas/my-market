@@ -1,5 +1,5 @@
 <div align="center">
-<h2 align="center"> My Market </h2>
+<h1 align="center"> My Market </h1>
 
 <span align="center">A serverless marketplace where users can buy and sell used items. </span>
 <br />
@@ -29,6 +29,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<p>My Market is a fully serverless application built using TypeScript and Next.js, designed to provide a seamless marketplace experience. The platform supports secure OAuth login via Google and GitHub using OAuth 2.0, with session management powered by iron-session. Users can interact through real-time chat, manage items efficiently, and access a secure PostgreSQL database for data storage. This marketplace ensures a scalable, high-performance environment without the need for traditional server infrastructure.</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- BUILT WITH -->
