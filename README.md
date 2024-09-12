@@ -3,7 +3,7 @@
 
 <span align="center">A serverless marketplace where users can buy and sell used items. </span>
 <br />
-<span align="center">Check it out live here: <a href="https://my-market-henna.vercel.app">my-market-henna.vercel.app</a></span>
+<span align="center">Check it out live at <a href="https://my-market-henna.vercel.app">my-market-henna.vercel.app</a></span>
 </div>
 
 <!-- TABLE OF CONTENTS -->
